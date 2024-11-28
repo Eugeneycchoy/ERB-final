@@ -3,3 +3,24 @@ nav {
   padding: 1rem;
   padding-block: 1.8rem;
 }
+
+#nav-logo {
+  color: white;
+}
+
+.navbar-top {
+  display: flex;
+  gap: 5rem;
+}
+
+.nav {
+  display: flex;
+  gap: 1rem;
+}
+
+#root > div.navbar-container > nav > ul > li > a {
+  color: white;
+  text-decoration: none;
+  border: 2px solid white;
+  padding: 5px;
+}
