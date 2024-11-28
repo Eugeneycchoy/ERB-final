@@ -7,7 +7,9 @@ export default function Navbar() {
         <nav class="navbar-top">
           <input class="search-box" type="text" placeholder="Search Movies" />
           <div class="nav-mid"></div>
-          <div id="nav-logo">This.Movie</div>
+          <div id="nav-logo">
+            This<span id="movie-logo">MOVIE</span>
+          </div>
         </nav>
         {/* 分類 */}
         <ul class="nav">
