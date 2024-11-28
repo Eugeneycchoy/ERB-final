@@ -1,0 +1,23 @@
+:root {
+  --color1: #1a1a1d;
+  --color2: #3b1c32;
+  --color3: #6a1e55;
+  --color4: #a64d79;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--color1);
+  color: var(--color4);
+}
+
+.movie-slider {
+  display: flex;
+  padding: 1.7rem;
+  gap: 2rem;
+}
