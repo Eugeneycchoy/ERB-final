@@ -21,4 +21,13 @@ body {
   display: flex;
   padding: 1.7rem;
   gap: 2rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+h2 {
+  font-size: 3rem;
+  color: #fff;
+  padding: 2rem;
+  font-weight: bold;
 }

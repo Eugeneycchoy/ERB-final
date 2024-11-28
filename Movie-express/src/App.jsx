@@ -10,7 +10,7 @@ function App() {
   const [movies, setMovies] = useState([]);
 
   const [url, setUrl] = useState(
-    "http://www.omdbapi.com/?s=arcane&apikey=b659da55"
+    "http://www.omdbapi.com/?s=star wars&apikey=b659da55"
   );
 
   useEffect(() => {
@@ -34,6 +34,7 @@ function App() {
   return (
     <>
       <Navbar />
+      <h2>Search result: "harry potter"</h2>
       <div className="movie-slider">{movieElements}</div>
     </>
   );
