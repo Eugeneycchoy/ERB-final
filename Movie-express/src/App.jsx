@@ -5,37 +5,48 @@ import { nanoid } from "nanoid";
 // import components
 import Navbar from "../src/components/Navbar/Navbar.jsx";
 import SingleMovie from "../src/components/SingleMovie/SingleMovie.jsx";
+import MovieCarousel from "../src/components/MovieCarousel/MovieCarousel.jsx";
 
 function App() {
-  const [movies, setMovies] = useState([]);
+  const apiKey = "7e2c4aa4c12d6fa20f4fe120dba56b78";
+  const moviesUrl = "https://api.themoviedb.org/3/movie/550?api_key=" + apiKey;
 
-  const [url, setUrl] = useState(
-    "http://www.omdbapi.com/?s=star wars&apikey=b659da55"
-  );
+  /* -------------------------------------------------------------------------- */
+  /*                           Popular Movies & Series                          */
+  /* -------------------------------------------------------------------------- */
+  const popularUrl =
+    "https://api.themoviedb.org/3/movie/popular?language=en-US&page=1";
+  const popularOptions = {
+    method: "GET",
+    headers: {
+      accept: "application/json",
+      Authorization: "Bearer 7e2c4aa4c12d6fa20f4fe120dba56b78",
+    },
+  };
+
+  async function getMovieData(url, options) {
+    const response = await fetch(url, options);
+    const responseJSON = await response.json();
+    return responseJSON;
+  }
+
+  const [popularMovies, setPopularMovies] = useState([]);
 
   useEffect(() => {
-    fetch(url)
-      .then((res) => res.json())
-      .then((data) => setMovies(data.Search));
+    async function fetchData() {
+      const data = await getMovieData(popularUrl, popularOptions);
+      setPopularMovies(data.results);
+    }
+    fetchData();
   }, []);
 
-  // jsx template
-  const movieElements = movies.map((movie) => {
-    return (
-      <SingleMovie
-        poster={movie.Poster}
-        title={movie.Title}
-        year={movie.Year}
-      />
-    );
-  });
-
-  // jsx output
+  console.log(popularMovies);
   return (
     <>
       <Navbar />
-      <h2>Search result: "harry potter"</h2>
-      <div className="movie-slider">{movieElements}</div>
+      <main>
+        <MovieCarousel movies={popularMovies} tag="🔥 Now Trending" />
+      </main>
     </>
   );
 }
