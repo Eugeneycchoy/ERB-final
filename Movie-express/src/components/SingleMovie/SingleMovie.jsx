@@ -9,9 +9,12 @@ export default function SingleMovie({
   return (
     <>
       <div className="movie-container">
+        <div className="movie-dark-overlay"></div>
         <img className="movie-poster" src={poster} alt="" />
-        <h3 className="movie-title">{title}</h3>
-        <span className="movie-year">{year}</span>
+        <div className="movie-text-content">
+          <h3 className="movie-title">{title}</h3>
+          <span className="movie-year">{year}</span>
+        </div>
       </div>
     </>
   );
