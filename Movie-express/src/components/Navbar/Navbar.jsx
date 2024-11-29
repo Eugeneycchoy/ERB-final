@@ -30,7 +30,7 @@ export default function Navbar(props) {
           {/* call handleSearch when the serach button is clicked*/}
           <div className="nav-mid"></div>
           <div id="nav-logo" onClick={props.onLogoClick}>
-            This<span id="movie-logo">MOVIE</span>
+            This<span id="movie-logo">TV</span>
           </div>
         </nav>
         <ul className="nav">

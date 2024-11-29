@@ -1,3 +1,20 @@
+/* failed font application */
+@font-face {
+  font-family: "impactWide";
+  src: url("../../assets/fonts/impact-font/impact.ttf") format("truetype"),
+    url("../../assets/fonts/impact-font/Impacted.ttf") format("truetype");
+
+  font-weight: bold; /* 根據需要設置字體粗細 */
+  font-style: normal; /* 根據需要設置字體樣式 */
+}
+@font-face {
+  font-family: "Ultra";
+  src: url("../../assets/fonts/Ultra/Ultra-Regular.ttf") format("truetype");
+
+  font-weight: bold; /* 根據需要設置字體粗細 */
+  font-style: normal; /* 根據需要設置字體樣式 */
+}
+
 nav {
   /* border: 1px solid #fff; */
   padding: 1rem;
@@ -5,15 +22,20 @@ nav {
 }
 
 #nav-logo {
-  color: rgb(249, 72, 119);
+  color: #fd0282;
   font-weight: bold;
   cursor: pointer;
-  font-size: 2rem;
+  font-size: 1.6rem;
   margin-right: 4vw;
+  font-family: impactWide;
+  letter-spacing: 1px;
 }
 
 #movie-logo {
-  color: rgb(0, 255, 242);
+  color: #4dfcec;
+  font-family: Ultra;
+  font-size: 1.8rem;
+  letter-spacing: 1px;
 }
 
 .navbar-top {
