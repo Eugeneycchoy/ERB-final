@@ -32,7 +32,7 @@ export default function MovieList(props) {
   return (
     <>
       <div className="movie-list-container">
-        <h2>{props.tag}</h2>
+        <h2 id="trending-tag">{props.tag}</h2>
         <div
           id="carouselExampleIndicators"
           class="carousel slide"

@@ -21,21 +21,3 @@ body {
 main {
   padding-block: 3rem;
 }
-
-#root > main > div.movie-bento-container h2 {
-  position: absolute;
-  z-index: 1000;
-  margin: 2rem;
-  border: 1px solid white;
-  padding: 1.2rem;
-  border-radius: 25px;
-  font-size: 14px;
-
-  /* From https://css.glass */
-  background: rgba(255, 255, 255, 0.14);
-  border-radius: 16px;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(5.8px);
-  -webkit-backdrop-filter: blur(5.8px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-}

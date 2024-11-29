@@ -5,14 +5,22 @@ export default function Bento() {
     <>
       {/* Bento */}
       <div className="movie-bento-container">
-        <div className="nowplaying-container">
-          <h2>Now Playing </h2>
+        <div className="artrists-container">
+          <h2>Artists</h2>
+          <div></div>
+          <div></div>
+          <div></div>
         </div>
-        <div className="recently-container">
-          <h2>Continue Watching</h2>
+        <div className="new-trailer-container">
+          <div>
+            <h2>New Trailer</h2>
+          </div>
         </div>
         <div className="recommend-container">
           <h2>You Might Like</h2>
+          <div></div>
+          <div></div>
+          <div></div>
         </div>
       </div>
     </>
