@@ -1,20 +1,17 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
-
-// import components
 import Navbar from "../src/components/Navbar/Navbar.jsx";
-// import SingleMovie from "../src/components/SingleMovie/SingleMovie.jsx";
 import MovieCarousel from "../src/components/MovieCarousel/MovieCarousel.jsx";
+import MovieList from "../src/components/MovieList/MovieList.jsx";
 
 function App() {
-  const apiKey = "7e2c4aa4c12d6fa20f4fe120dba56b78";
-  const moviesUrl = "https://api.themoviedb.org/3/movie/550?api_key=" + apiKey;
+  const movieImgBasePath = "https://image.tmdb.org/t/p/original";
 
-  /* -------------------------------------------------------------------------- */
-  /*                           Popular Movies & Series                          */
-  /* -------------------------------------------------------------------------- */
+  const apiKey = "7e2c4aa4c12d6fa20f4fe120dba56b78";
   const popularUrl =
-    "https://api.themoviedb.org/3/movie/popular?language=en-US&page=1";
+    "https://api.themoviedb.org/3/movie/popular?language=en-US&page=1&api_key=" +
+    apiKey;
+
   const popularOptions = {
     method: "GET",
     headers: {
@@ -32,6 +29,7 @@ function App() {
 
   const [popularMovies, setPopularMovies] = useState([]);
 
+  // Trending Movies data is ALWAYS retrieved once when the page loads
   useEffect(() => {
     async function fetchData() {
       const data = await getMovieData(popularUrl, popularOptions);
@@ -44,11 +42,48 @@ function App() {
     }
   }, []);
 
+  /* -------------------------------------------------------------------------- */
+  /*                       Handling input from Search bar                       */
+  /* -------------------------------------------------------------------------- */
+  // Storing the search result as an empty array by default
+  const [searchResults, setSearchResults] = useState([]);
+
+  // What happens when the user submitts a search query
+  function handleSearch(query) {
+    const searchUrl = `https://api.themoviedb.org/3/search/movie?query=${query}&api_key=${apiKey}`;
+    async function fetchSearchData() {
+      const data = await getMovieData(searchUrl);
+      setSearchResults(data.results);
+      console.log(searchResults);
+    }
+    try {
+      fetchSearchData();
+    } catch {
+      console.error();
+    }
+  }
+
+  function handleLogoClick() {
+    // reset search results
+    setSearchResults([]);
+  }
+
   return (
     <>
-      <Navbar />
+      {/* Adding an onSearch Listener to the Navbar*/}
+      <Navbar onSearch={handleSearch} onLogoClick={handleLogoClick} />
       <main>
-        <MovieCarousel movies={popularMovies} tag="🔥 Now Trending" />
+        {/*Conditional Rendering
+          if searchResult is empty
+            display home screen
+          otherwise
+            display search results*/}
+
+        {searchResults.length > 0 ? (
+          <MovieList movies={searchResults} baseImgPath={movieImgBasePath} />
+        ) : (
+          <MovieCarousel movies={popularMovies} tag="🔥 Now Trending" />
+        )}
       </main>
     </>
   );

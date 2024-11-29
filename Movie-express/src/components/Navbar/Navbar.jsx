@@ -1,46 +1,66 @@
-import "../Navbar/Navbar.css";
+import React, { useState } from "react";
+import "./Navbar.css";
 
-export default function Navbar() {
+export default function Navbar(props) {
+  // Nothing is typed in by the user
+  const [query, setQuery] = useState("");
+
+  // Tracking the value in the input field
+  function handleInputChange(e) {
+    setQuery(e.target.value);
+  }
+
+  // Search button is pressed
+  const handleSearch = () => {
+    props.onSearch(query);
+  };
+
   return (
     <>
       <div className="navbar-container">
-        <nav class="navbar-top">
-          <input class="search-box" type="text" placeholder="Search Movies" />
-          <div class="nav-mid"></div>
-          <div id="nav-logo">
+        <nav className="navbar-top">
+          <input
+            className="search-box"
+            type="text"
+            value={query} /* Give this element a variable name */
+            onChange={handleInputChange} /* call handleInputChange */
+            placeholder="Search Movies"
+          />
+          <button onClick={handleSearch}>Search</button>{" "}
+          {/* call handleSearch when the serach button is clicked*/}
+          <div className="nav-mid"></div>
+          <div id="nav-logo" onClick={props.onLogoClick}>
             This<span id="movie-logo">MOVIE</span>
           </div>
         </nav>
-        {/* 分類 */}
-        <ul class="nav">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">
+        <ul className="nav">
+          <li className="nav-item">
+            <a className="nav-link active" aria-current="page" href="#">
               Home
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
+          <li className="nav-item">
+            <a className="nav-link" href="#">
               TV Shows
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              Moives
+          <li className="nav-item">
+            <a className="nav-link" href="#">
+              Movies
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
+          <li className="nav-item">
+            <a className="nav-link" href="#">
               Channels
             </a>
           </li>
-
-          <li class="nav-item">
-            <a class="nav-link" href="#">
+          <li className="nav-item">
+            <a className="nav-link" href="#">
               My List
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
+          <li className="nav-item">
+            <a className="nav-link" href="#">
               Adult
             </a>
           </li>
