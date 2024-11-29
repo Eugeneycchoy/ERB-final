@@ -7,8 +7,17 @@ import Bento from "../src/components/Bento/Bento.jsx";
 
 function App() {
   const movieImgBasePath = "https://image.tmdb.org/t/p/original";
-
   const apiKey = "7e2c4aa4c12d6fa20f4fe120dba56b78";
+
+  async function getMovieData(url, options) {
+    const response = await fetch(url, options);
+    const responseJSON = await response.json();
+    return responseJSON;
+  }
+
+  /* -------------------------------------------------------------------------- */
+  /*                           Trending Movies/Series                           */
+  /* -------------------------------------------------------------------------- */
   const popularUrl =
     "https://api.themoviedb.org/3/movie/popular?language=en-US&page=1&api_key=" +
     apiKey;
@@ -22,22 +31,27 @@ function App() {
     },
   };
 
-  async function getMovieData(url, options) {
-    const response = await fetch(url, options);
-    const responseJSON = await response.json();
-    return responseJSON;
-  }
-
   const [popularMovies, setPopularMovies] = useState([]);
 
   // Trending Movies data is ALWAYS retrieved once when the page loads
   useEffect(() => {
-    async function fetchData() {
+    async function fetchTrendingData() {
       const data = await getMovieData(popularUrl, popularOptions);
       setPopularMovies(data.results);
     }
+
+    async function fetchTrailerData() {
+      const response = await fetch(videoTrailerUrl, videoTrailerOptions);
+      if (!response.ok) {
+        console.error(`Error: ${response.status} - ${response.statusText}`);
+        return;
+      }
+      const data = await response.json();
+      setTrailerVideo(data);
+    }
     try {
-      fetchData();
+      fetchTrendingData();
+      fetchTrailerData();
     } catch {
       console.error();
     }
@@ -69,23 +83,28 @@ function App() {
     setSearchResults([]);
   }
 
+  /* -------------------------------------------------------------------------- */
+  /*                               New Trailer API                              */
+  /* -------------------------------------------------------------------------- */
+  const [trailerVideo, setTrailerVideo] = useState(null);
+
+  const movieId = "1394594";
+  const videoTrailerUrl = `https://api.themoviedb.org/3/movie/${movieId}/videos?language=en-US&api_key=${apiKey}`;
+
+  // const baseVideoURL = `http://api.themoviedb.org/3/movie/157336/videos?api_key=`;
+  // const videoURL = baseVideoURL + apiKey;
+
   return (
     <>
       {/* Adding an onSearch Listener to the Navbar*/}
       <Navbar onSearch={handleSearch} onLogoClick={handleLogoClick} />
       <main>
-        {/*Conditional Rendering
-          if searchResult is empty
-            display home screen
-          otherwise
-            display search results*/}
-
         {searchResults.length > 0 ? (
           <MovieList movies={searchResults} baseImgPath={movieImgBasePath} />
         ) : (
           <>
             <MovieCarousel movies={popularMovies} tag="🔥 Now Trending" />
-            <Bento />
+            <Bento videoURL={videoTrailerUrl} />
           </>
         )}
       </main>
