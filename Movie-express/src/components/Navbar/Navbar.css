@@ -1,3 +1,12 @@
+/* Font family */
+@font-face {
+  font-family: "UntitledWoodTypeThin";
+  src: url("../../assets/fonts/UntitledWoodTypeThin.ttf") format("truetype");
+
+  font-weight: normal;
+  font-style: normal;
+}
+
 nav {
   /* border: 1px solid #fff; */
   padding: 1rem;
@@ -5,15 +14,22 @@ nav {
 }
 
 #nav-logo {
-  color: rgb(249, 72, 119);
+  color: #fd0282;
   font-weight: bold;
   cursor: pointer;
   font-size: 2rem;
   margin-right: 4vw;
+  font-family: Impact;
+  letter-spacing: 1px;
+  text-align: center;
 }
 
 #movie-logo {
-  color: rgb(0, 255, 242);
+  color: #4dfcec;
+  font-family: UntitledWoodTypeThin;
+  font-size: 2.3rem;
+  font-weight: 100;
+  letter-spacing: -1px;
 }
 
 .navbar-top {
