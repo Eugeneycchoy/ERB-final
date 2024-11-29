@@ -39,8 +39,19 @@ function App() {
       const data = await getMovieData(popularUrl, popularOptions);
       setPopularMovies(data.results);
     }
+
+    async function fetchTrailerData() {
+      const response = await fetch(videoTrailerUrl, videoTrailerOptions);
+      if (!response.ok) {
+        console.error(`Error: ${response.status} - ${response.statusText}`);
+        return;
+      }
+      const data = await response.json();
+      setTrailerVideo(data);
+    }
     try {
       fetchTrendingData();
+      fetchTrailerData();
     } catch {
       console.error();
     }
@@ -72,6 +83,17 @@ function App() {
     setSearchResults([]);
   }
 
+  /* -------------------------------------------------------------------------- */
+  /*                               New Trailer API                              */
+  /* -------------------------------------------------------------------------- */
+  const [trailerVideo, setTrailerVideo] = useState(null);
+
+  const movieId = "1394594";
+  const videoTrailerUrl = `https://api.themoviedb.org/3/movie/${movieId}/videos?language=en-US&api_key=${apiKey}`;
+
+  // const baseVideoURL = `http://api.themoviedb.org/3/movie/157336/videos?api_key=`;
+  // const videoURL = baseVideoURL + apiKey;
+
   return (
     <>
       {/* Adding an onSearch Listener to the Navbar*/}
@@ -82,7 +104,7 @@ function App() {
         ) : (
           <>
             <MovieCarousel movies={popularMovies} tag="🔥 Now Trending" />
-            <Bento />
+            <Bento videoURL={videoTrailerUrl} />
           </>
         )}
       </main>

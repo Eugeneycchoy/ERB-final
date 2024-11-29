@@ -1,20 +1,11 @@
 import "../SingleMovie/SingleMovie.css";
-import cannotFindMoviePoster from "../../../public/cannot-find-movie-poster.jpg";
 
-export default function SingleMovie({
-  poster = cannotFindMoviePoster, // Remove the curly braces
-  title,
-  year,
-}) {
+export default function SingleMovie(props) {
+  const videoURL = props.videoURL;
   return (
     <>
-      <div className="movie-container">
-        <div className="movie-dark-overlay"></div>
-        <img className="movie-poster" src={poster} alt="" />
-        <div className="movie-text-content">
-          <h3 className="movie-title">{title}</h3>
-          <span className="movie-year">{year}</span>
-        </div>
+      <div className="single-movie-container">
+        <iframe src="https://www.youtube.com/embed/q_MaCi7i180?si=ctFr8P7ruxBRiCUU"></iframe>
       </div>
     </>
   );
