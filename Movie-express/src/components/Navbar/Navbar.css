@@ -17,17 +17,24 @@ nav {
   color: #fd0282;
   font-weight: bold;
   cursor: pointer;
-  font-size: 1.6rem;
+  font-size: 1.8rem;
   margin-right: 4vw;
   font-family: Impact;
-  letter-spacing: 1px;
-  text-align: center;
+  font-weight: 100;
+  display: flex;
+  align-items: center;
+}
+
+#nav-logo:hover {
+  transform: scale(2);
+  transition: all ease-in 30s;
+  opacity: 0;
 }
 
 #movie-logo {
   color: #4dfcec;
   font-family: UntitledWoodTypeThin;
-  font-size: 2.3rem;
+  font-size: 2.1rem;
   font-weight: 100;
   letter-spacing: -1px;
 }
@@ -52,7 +59,7 @@ nav {
 }
 
 .search-box:hover {
-  box-shadow: 0px 0px 2px 2px rgba(166, 177, 183);
+  box-shadow: 0px 0px 5px 1px #4dfced45;
 }
 
 .nav-mid {
@@ -87,7 +94,8 @@ nav {
 }
 
 .nav-link:hover {
-  color: white;
+  color: rgba(255, 255, 255, 0.8);
+  background-color: #4dfced45;
   opacity: 1;
-  box-shadow: 0px 0px 2px 2px rgba(166, 177, 183);
+  box-shadow: 0px 0px 20px 2px #fd02844b;
 }
