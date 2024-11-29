@@ -1,4 +1,5 @@
 import "../MovieList/MovieList.css";
+import cannotFindImg from "../../assets/thistv.png";
 
 export default function MovieList(props) {
   // JSX template
@@ -6,7 +7,14 @@ export default function MovieList(props) {
     return (
       <div className="movie-container">
         <div className="movie-container-dark-overlay"></div>
-        <img src={props.baseImgPath + movie.poster_path} alt="" />
+        <img
+          src={
+            (props.baseImgPath + movie.poster_path).includes("originalnull")
+              ? cannotFindImg
+              : props.baseImgPath + movie.poster_path
+          }
+          alt=""
+        />
       </div>
     );
   });

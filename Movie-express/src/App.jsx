@@ -7,6 +7,7 @@ import Bento from "../src/components/Bento/Bento.jsx";
 
 function App() {
   const movieImgBasePath = "https://image.tmdb.org/t/p/original";
+  const youtubeBaseUrl = "https://www.youtube.com/embed/";
   const apiKey = "7e2c4aa4c12d6fa20f4fe120dba56b78";
 
   async function getMovieData(url, options) {
@@ -40,18 +41,8 @@ function App() {
       setPopularMovies(data.results);
     }
 
-    async function fetchTrailerData() {
-      const response = await fetch(videoTrailerUrl, videoTrailerOptions);
-      if (!response.ok) {
-        console.error(`Error: ${response.status} - ${response.statusText}`);
-        return;
-      }
-      const data = await response.json();
-      setTrailerVideo(data);
-    }
     try {
       fetchTrendingData();
-      fetchTrailerData();
     } catch {
       console.error();
     }
@@ -84,12 +75,68 @@ function App() {
   }
 
   /* -------------------------------------------------------------------------- */
+  /*                                 Artist API                                 */
+  /* -------------------------------------------------------------------------- */
+  const artistUrl =
+    "https://api.themoviedb.org/3/person/popular?language=en-US&page=1";
+  const artistOptions = {
+    method: "GET",
+    headers: {
+      accept: "application/json",
+      Authorization:
+        "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3ZTJjNGFhNGMxMmQ2ZmEyMGY0ZmUxMjBkYmE1NmI3OCIsIm5iZiI6MTczMjg5MzA3OS42NDI3ODI3LCJzdWIiOiI2NzQ3ZGZlNjhiYjg0YWI4MDhjZjg4M2EiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.sfnRZ_raRUd8IfLJ7XPuXg0wpBtlGeWxqAuWr_0fBhc",
+    },
+  };
+
+  const [topArtists, setTopArtists] = useState([]);
+
+  useEffect(() => {
+    async function fetchArtistData() {
+      const data = await getMovieData(artistUrl, artistOptions);
+      const artistList = [];
+      for (let i = 0; i < 3; i++) {
+        artistList.push(data.results[i]);
+      }
+      console.log(artistList);
+      setTopArtists(artistList);
+    }
+    try {
+      fetchArtistData();
+    } catch {
+      console.error();
+    }
+  }, []);
+
+  /* -------------------------------------------------------------------------- */
   /*                               New Trailer API                              */
   /* -------------------------------------------------------------------------- */
-  const [trailerVideo, setTrailerVideo] = useState(null);
+  // Get a list of the current most popular movies
+  // randomly choose one of them to be displayed in the trailer section
 
-  const movieId = "1394594";
-  const videoTrailerUrl = `https://api.themoviedb.org/3/movie/${movieId}/videos?language=en-US&api_key=${apiKey}`;
+  const [trailerVideo, setTrailerVideo] = useState(null);
+  const [randomTrailerMovie, setRandomTrailerMovie] = useState("1100782");
+  const videoTrailerUrl = `https://api.themoviedb.org/3/movie/${randomTrailerMovie}/videos?language=en-US`;
+  const videoTrailerOptions = {
+    method: "GET",
+    headers: {
+      accept: "application/json",
+      Authorization:
+        "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3ZTJjNGFhNGMxMmQ2ZmEyMGY0ZmUxMjBkYmE1NmI3OCIsIm5iZiI6MTczMjg5MzA3OS42NDI3ODI3LCJzdWIiOiI2NzQ3ZGZlNjhiYjg0YWI4MDhjZjg4M2EiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.sfnRZ_raRUd8IfLJ7XPuXg0wpBtlGeWxqAuWr_0fBhc",
+    },
+  };
+
+  useEffect(() => {
+    try {
+      setRandomTrailerMovie(
+        popularMovies[Math.floor(Math.random() * popularMovies.length)].id
+      );
+      fetch(videoTrailerUrl, videoTrailerOptions)
+        .then((res) => res.json())
+        .then((data) => setTrailerVideo(youtubeBaseUrl + data.results[0].key));
+    } catch {
+      console.error();
+    }
+  }, [popularMovies]);
 
   // const baseVideoURL = `http://api.themoviedb.org/3/movie/157336/videos?api_key=`;
   // const videoURL = baseVideoURL + apiKey;
@@ -104,7 +151,11 @@ function App() {
         ) : (
           <>
             <MovieCarousel movies={popularMovies} tag="🔥 Now Trending" />
-            <Bento videoURL={videoTrailerUrl} />
+            <Bento
+              baseUrl={movieImgBasePath}
+              artists={topArtists}
+              videoURL={trailerVideo}
+            />
           </>
         )}
       </main>
