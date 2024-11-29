@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
 import "./App.css";
-import { nanoid } from "nanoid";
 
 // import components
 import Navbar from "../src/components/Navbar/Navbar.jsx";
-import SingleMovie from "../src/components/SingleMovie/SingleMovie.jsx";
+// import SingleMovie from "../src/components/SingleMovie/SingleMovie.jsx";
 import MovieCarousel from "../src/components/MovieCarousel/MovieCarousel.jsx";
 
 function App() {
@@ -20,7 +19,8 @@ function App() {
     method: "GET",
     headers: {
       accept: "application/json",
-      Authorization: "Bearer 7e2c4aa4c12d6fa20f4fe120dba56b78",
+      Authorization:
+        "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3ZTJjNGFhNGMxMmQ2ZmEyMGY0ZmUxMjBkYmE1NmI3OCIsIm5iZiI6MTczMjg0MDc3Mi4xMDA4ODc1LCJzdWIiOiI2NzQ3ZGZlNjhiYjg0YWI4MDhjZjg4M2EiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.-e-wOvqK4855KYpoK42g_7hNCnMKiceRBksWNZF86V8",
     },
   };
 
@@ -37,10 +37,13 @@ function App() {
       const data = await getMovieData(popularUrl, popularOptions);
       setPopularMovies(data.results);
     }
-    fetchData();
+    try {
+      fetchData();
+    } catch {
+      console.error();
+    }
   }, []);
 
-  console.log(popularMovies);
   return (
     <>
       <Navbar />

@@ -37,7 +37,6 @@ export default function MovieList(props) {
           id="carouselExampleIndicators"
           class="carousel slide"
           data-ride="carousel"
-          data-interval="false"
         >
           <div class="carousel-inner">{movieElements}</div>
           <a
