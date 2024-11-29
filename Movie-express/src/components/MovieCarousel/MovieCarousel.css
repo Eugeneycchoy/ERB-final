@@ -1,6 +1,12 @@
 .movie-list-container {
-  width: 90%;
+  width: 100%;
   margin: 0 auto;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+#carouselExampleIndicators {
+  width: 90%;
   border-radius: 20px;
   overflow: hidden;
 }

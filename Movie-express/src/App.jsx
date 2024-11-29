@@ -3,6 +3,7 @@ import "./App.css";
 import Navbar from "../src/components/Navbar/Navbar.jsx";
 import MovieCarousel from "../src/components/MovieCarousel/MovieCarousel.jsx";
 import MovieList from "../src/components/MovieList/MovieList.jsx";
+import Bento from "../src/components/Bento/Bento.jsx";
 
 function App() {
   const movieImgBasePath = "https://image.tmdb.org/t/p/original";
@@ -82,7 +83,10 @@ function App() {
         {searchResults.length > 0 ? (
           <MovieList movies={searchResults} baseImgPath={movieImgBasePath} />
         ) : (
-          <MovieCarousel movies={popularMovies} tag="🔥 Now Trending" />
+          <>
+            <MovieCarousel movies={popularMovies} tag="🔥 Now Trending" />
+            <Bento />
+          </>
         )}
       </main>
     </>
