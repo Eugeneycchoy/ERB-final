@@ -7,8 +7,17 @@ import Bento from "../src/components/Bento/Bento.jsx";
 
 function App() {
   const movieImgBasePath = "https://image.tmdb.org/t/p/original";
-
   const apiKey = "7e2c4aa4c12d6fa20f4fe120dba56b78";
+
+  async function getMovieData(url, options) {
+    const response = await fetch(url, options);
+    const responseJSON = await response.json();
+    return responseJSON;
+  }
+
+  /* -------------------------------------------------------------------------- */
+  /*                           Trending Movies/Series                           */
+  /* -------------------------------------------------------------------------- */
   const popularUrl =
     "https://api.themoviedb.org/3/movie/popular?language=en-US&page=1&api_key=" +
     apiKey;
@@ -22,22 +31,16 @@ function App() {
     },
   };
 
-  async function getMovieData(url, options) {
-    const response = await fetch(url, options);
-    const responseJSON = await response.json();
-    return responseJSON;
-  }
-
   const [popularMovies, setPopularMovies] = useState([]);
 
   // Trending Movies data is ALWAYS retrieved once when the page loads
   useEffect(() => {
-    async function fetchData() {
+    async function fetchTrendingData() {
       const data = await getMovieData(popularUrl, popularOptions);
       setPopularMovies(data.results);
     }
     try {
-      fetchData();
+      fetchTrendingData();
     } catch {
       console.error();
     }
@@ -74,12 +77,6 @@ function App() {
       {/* Adding an onSearch Listener to the Navbar*/}
       <Navbar onSearch={handleSearch} onLogoClick={handleLogoClick} />
       <main>
-        {/*Conditional Rendering
-          if searchResult is empty
-            display home screen
-          otherwise
-            display search results*/}
-
         {searchResults.length > 0 ? (
           <MovieList movies={searchResults} baseImgPath={movieImgBasePath} />
         ) : (
