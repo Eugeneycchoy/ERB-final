@@ -10,9 +10,11 @@ export default function MovieList(props) {
         <div className="movie-container-dark-overlay"></div>
 
         <SingleShow
+          key={movie.id}
           show={movie}
           baseUrl={props.baseImgPath}
           imageType="poster"
+          handleDisplayModal={props.handleDisplayModal}
         />
         {/* <img
           src={

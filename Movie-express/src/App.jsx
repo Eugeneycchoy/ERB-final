@@ -4,6 +4,7 @@ import Navbar from "../src/components/Navbar/Navbar.jsx";
 import MovieCarousel from "../src/components/MovieCarousel/MovieCarousel.jsx";
 import MovieList from "../src/components/MovieList/MovieList.jsx";
 import Bento from "../src/components/Bento/Bento.jsx";
+import Modal from "../src/components/Modal/Modal.jsx";
 
 function App() {
   const movieImgBasePath = "https://image.tmdb.org/t/p/original";
@@ -14,6 +15,19 @@ function App() {
     const response = await fetch(url, options);
     const responseJSON = await response.json();
     return responseJSON;
+  }
+
+  /* -------------------------------------------------------------------------- */
+  /*                             Show Modal Overlay                             */
+  /* -------------------------------------------------------------------------- */
+  const [showModal, setShowModal] = useState(false);
+
+  function displayModal() {
+    setShowModal(true);
+  }
+
+  function closeModal() {
+    setShowModal(false);
   }
 
   /* -------------------------------------------------------------------------- */
@@ -167,17 +181,27 @@ function App() {
     <>
       {/* Adding an onSearch Listener to the Navbar*/}
       <Navbar onSearch={handleSearch} onLogoClick={handleLogoClick} />
+      {showModal && <Modal handleCloseModal={closeModal} />}
       <main>
         {searchResults.length > 0 ? (
-          <MovieList movies={searchResults} baseImgPath={movieImgBasePath} />
+          <MovieList
+            movies={searchResults}
+            baseImgPath={movieImgBasePath}
+            handleDisplayModal={displayModal}
+          />
         ) : (
           <>
-            <MovieCarousel movies={popularMovies} tag="🔥 Now Trending" />
+            <MovieCarousel
+              movies={popularMovies}
+              handleDisplayModal={displayModal}
+              tag="🔥 Now Trending"
+            />
             <Bento
               baseUrl={movieImgBasePath}
               artists={topArtists}
               videoURL={trailerVideo}
               tvSeries={tvSeries}
+              handleDisplayModal={displayModal}
             />
           </>
         )}

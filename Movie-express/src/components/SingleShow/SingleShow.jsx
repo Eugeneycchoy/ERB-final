@@ -1,11 +1,11 @@
 import "../SingleShow/SingleShow.css";
-import sg from "../../assets/sg.jpeg";
 
-export default function SingleShow({ show, baseUrl, imageType }) {
-  function handleClick() {
-    console.log(show.name || show.title);
-  }
-
+export default function SingleShow({
+  show,
+  baseUrl,
+  imageType,
+  handleDisplayModal,
+}) {
   return (
     <>
       <img
@@ -17,7 +17,7 @@ export default function SingleShow({ show, baseUrl, imageType }) {
             : baseUrl + show.poster_path
         }
         alt=""
-        onClick={handleClick}
+        onClick={handleDisplayModal}
       />
     </>
   );
