@@ -141,6 +141,28 @@ function App() {
   // const baseVideoURL = `http://api.themoviedb.org/3/movie/157336/videos?api_key=`;
   // const videoURL = baseVideoURL + apiKey;
 
+  /* -------------------------------------------------------------------------- */
+  /*                                  TV Series                                 */
+  /* -------------------------------------------------------------------------- */
+  const [tvSeries, setTvSeries] = useState([]);
+
+  const tvSeriesUrl =
+    "https://api.themoviedb.org/3/trending/tv/day?language=en-US";
+  const tvSeriesOptions = {
+    method: "GET",
+    headers: {
+      accept: "application/json",
+      Authorization:
+        "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3ZTJjNGFhNGMxMmQ2ZmEyMGY0ZmUxMjBkYmE1NmI3OCIsIm5iZiI6MTczMjg5MzA3OS42NDI3ODI3LCJzdWIiOiI2NzQ3ZGZlNjhiYjg0YWI4MDhjZjg4M2EiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.sfnRZ_raRUd8IfLJ7XPuXg0wpBtlGeWxqAuWr_0fBhc",
+    },
+  };
+
+  useEffect(() => {
+    fetch(tvSeriesUrl, tvSeriesOptions)
+      .then((res) => res.json())
+      .then((tvSeriesData) => setTvSeries(tvSeriesData.results));
+  }, []);
+
   return (
     <>
       {/* Adding an onSearch Listener to the Navbar*/}
@@ -155,6 +177,7 @@ function App() {
               baseUrl={movieImgBasePath}
               artists={topArtists}
               videoURL={trailerVideo}
+              tvSeries={tvSeries}
             />
           </>
         )}

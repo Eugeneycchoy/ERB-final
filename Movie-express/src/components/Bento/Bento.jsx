@@ -1,9 +1,40 @@
 import "../Bento/Bento.css";
-import "../SingleMovie/SingleMovie.jsx";
-import SingleMovie from "../SingleMovie/SingleMovie.jsx";
-import sg from "../../assets/sg.jpeg";
+import "../SingleTrailer/SingleTrailer.jsx";
+import SingleMovie from "../SingleTrailer/SingleTrailer.jsx";
 
 export default function Bento(props) {
+  const tvSeries = [...props.tvSeries];
+
+  function getUniqueItems(amount, arr) {
+    if (amount > arr.length) {
+      throw new Error("Amount exceeds the number of available items");
+    }
+
+    const shuffledArray = arr.sort(() => Math.random() - 0.5);
+    return shuffledArray.slice(0, amount);
+  }
+
+  let tvSeriesToDisplay = [];
+  try {
+    tvSeriesToDisplay = getUniqueItems(3, tvSeries);
+  } catch (error) {
+    console.error(error.message);
+  }
+
+  // JSX Template
+  const tvSeriesElements = tvSeriesToDisplay.map((tvShow) => {
+    if (!tvShow || !tvShow.id || !tvShow.poster_path) {
+      console.error("Invalid tvShow data:", tvShow);
+      return null;
+    }
+    return (
+      <div key={tvShow.id}>
+        <img src={props.baseUrl + tvShow.poster_path} alt={tvShow.name} />
+      </div>
+    );
+  });
+
+  // JSX Output
   return (
     <>
       {/* Bento */}
@@ -41,10 +72,8 @@ export default function Bento(props) {
           </div>
         </div>
         <div className="recommend-container">
-          <h2>You Might Like</h2>
-          <div></div>
-          <div></div>
-          <div></div>
+          <h2>TV Series Everyone's watching</h2>
+          {tvSeriesToDisplay.length > 0 ? tvSeriesElements : <p>No Series</p>}
         </div>
       </div>
     </>

@@ -70,6 +70,11 @@
   max-height: 100%;
 }
 
+.artrists-container div:hover {
+  transform: scale(1.02);
+  transition: 0.25s all ease-in-out;
+}
+
 .recommend-container {
   /* litte grid  */
   grid-column: 1fr;
@@ -85,6 +90,18 @@
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4) inset;
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
+  max-height: 30rem;
+}
+
+.recommend-container img {
+  object-fit: cover;
+  width: 100%;
+  cursor: pointer;
+}
+
+.recommend-container div:hover {
+  transform: scale(1.02);
+  transition: 0.25s all ease-in-out;
 }
 
 #root > main > div.movie-bento-container h2 {
