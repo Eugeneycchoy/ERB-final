@@ -1,6 +1,7 @@
 import "../MovieCarousel/MovieCarousel.css";
+import SingleShow from "../SingleShow/SingleShow.jsx";
 
-export default function MovieList(props) {
+export default function MovieCarousel(props) {
   const basicImgPath = "https://image.tmdb.org/t/p/original";
   // props.movies = [movie, movie, movie...]
 
@@ -14,12 +15,17 @@ export default function MovieList(props) {
     return (
       <div className={itemClass} key={movie.id}>
         <div className="movie-content">
-          <img
+          <SingleShow
+            show={movie}
+            baseUrl={basicImgPath}
+            imageType="backdrop"
+          />
+          {/* <img
             className="d-block"
             src={basicImgPath + movie.backdrop_path}
             alt={movie.title}
-          />
-          <div className="movie-img-dark-overlay"></div>
+          /> */}
+          {/* <div className="movie-img-dark-overlay"></div> */}
           <div className="movie-content-text">
             <h2>{movie.title}</h2>
             <p>{movie.overview}</p>

@@ -133,8 +133,8 @@ function App() {
       fetch(videoTrailerUrl, videoTrailerOptions)
         .then((res) => res.json())
         .then((data) => setTrailerVideo(youtubeBaseUrl + data.results[0].key));
-    } catch {
-      console.error();
+    } catch (e) {
+      console.error(e.message);
     }
   }, [popularMovies]);
 

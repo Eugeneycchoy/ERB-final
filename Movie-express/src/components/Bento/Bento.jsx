@@ -1,6 +1,7 @@
 import "../Bento/Bento.css";
 import "../SingleTrailer/SingleTrailer.jsx";
 import SingleMovie from "../SingleTrailer/SingleTrailer.jsx";
+import SingleShow from "../SingleShow/SingleShow.jsx";
 
 export default function Bento(props) {
   const tvSeries = [...props.tvSeries];
@@ -28,8 +29,11 @@ export default function Bento(props) {
       return null;
     }
     return (
+      // <div key={tvShow.id}>
+      //   <img src={props.baseUrl + tvShow.poster_path} alt={tvShow.name} />
+      // </div>
       <div key={tvShow.id}>
-        <img src={props.baseUrl + tvShow.poster_path} alt={tvShow.name} />
+        <SingleShow show={tvShow} baseUrl={props.baseUrl} />
       </div>
     );
   });
