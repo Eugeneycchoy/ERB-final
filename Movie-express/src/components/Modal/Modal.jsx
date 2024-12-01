@@ -79,7 +79,13 @@ export default function Modal({
       .then((res) => res.json())
       .then((resJSON) => {
         if (resJSON.results && resJSON.results.length > 0) {
-          setTrailerKey(resJSON.results[0].key);
+          for (let result of resJSON.results) {
+            if (result.type.includes("Trailer" || "trailer")) {
+              setTrailerKey(result.key);
+            } else {
+              setTrailerKey(resJSON.results[0].key);
+            }
+          }
         } else {
           console.log("No trailer found");
         }
@@ -131,9 +137,11 @@ export default function Modal({
 
           <div className="cast-list">{castElements}</div>
 
-          <button className="trailer-button" onClick={playTrailer}>
-            Watch Trailer
-          </button>
+          {trailerKey && (
+            <button className="trailer-button" onClick={playTrailer}>
+              Watch Trailer
+            </button>
+          )}
         </div>
         <img
           className="show_backdrop_img"
