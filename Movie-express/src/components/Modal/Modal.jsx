@@ -68,8 +68,30 @@ export default function Modal({
   /* -------------------------------------------------------------------------- */
   /*                             Movie Trailers API                            */
   /* -------------------------------------------------------------------------- */
+  const [trailerKey, setTrailerKey] = useState(null);
+  const youtubeBasePath = "https://www.youtube.com/watch?v=";
+  const movieTrailerUrl = `https://api.themoviedb.org/3/movie/${show.id}/videos?language=en-US`;
 
-  function playTrailer() {}
+  useEffect(() => {
+    fetch(movieTrailerUrl, apiOptions)
+      .then((res) => res.json())
+      .then((resJSON) => {
+        if (resJSON.results && resJSON.results.length > 0) {
+          setTrailerKey(resJSON.results[0].key);
+        } else {
+          console.log("No trailer found");
+        }
+      })
+      .catch((error) => console.error("Error fetching trailer:", error));
+  }, [movieTrailerUrl]);
+
+  function playTrailer() {
+    if (trailerKey) {
+      window.open(youtubeBasePath + trailerKey, "_blank");
+    } else {
+      console.log("Trailer key is not available");
+    }
+  }
 
   // JSX Output
 
@@ -107,7 +129,9 @@ export default function Modal({
 
           <div className="cast-list">{castElements}</div>
           {!show.media_type && (
-            <button onClick={playTrailer}>Watch Trailer</button>
+            <button className="trailer-button" onClick={playTrailer}>
+              Watch Trailer
+            </button>
           )}
         </div>
         <img

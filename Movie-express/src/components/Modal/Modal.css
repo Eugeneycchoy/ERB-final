@@ -129,3 +129,17 @@
   object-fit: cover;
   object-position: center;
 }
+
+.trailer-button {
+  width: 12rem;
+  padding: 1rem;
+  border: 1px solid #cd201f;
+  background-color: transparent;
+  color: #fff;
+  cursor: pointer;
+}
+
+.trailer-button:hover {
+  background-color: #cd201f;
+  transition: 0.2s all ease-in-out;
+}
