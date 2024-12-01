@@ -1,6 +1,46 @@
+import { useEffect, useState } from "react";
 import "../Modal/Modal.css";
 
 export default function Modal({ handleCloseModal, show, baseImgPath }) {
+  /* -------------------------------------------------------------------------- */
+  /*                              Show Details API                              */
+  /* -------------------------------------------------------------------------- */
+
+  const showDetailsUrl = show.media_type
+    ? `https://api.themoviedb.org/3/tv/${show.id}?language=en-US`
+    : `https://api.themoviedb.org/3/movie/${show.id}?language=en-US`;
+
+  const showDetailsOptions = {
+    method: "GET",
+    headers: {
+      accept: "application/json",
+      Authorization:
+        "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3ZTJjNGFhNGMxMmQ2ZmEyMGY0ZmUxMjBkYmE1NmI3OCIsIm5iZiI6MTczMjg5MzA3OS42NDI3ODI3LCJzdWIiOiI2NzQ3ZGZlNjhiYjg0YWI4MDhjZjg4M2EiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.sfnRZ_raRUd8IfLJ7XPuXg0wpBtlGeWxqAuWr_0fBhc",
+    },
+  };
+
+  const [showDetails, setShowDetails] = useState([]);
+
+  useEffect(() => {
+    fetch(showDetailsUrl, showDetailsOptions)
+      .then((res) => res.json())
+      .then((resJSON) => {
+        setShowDetails(resJSON);
+      });
+  }, [showDetailsUrl]);
+
+  useEffect(() => {
+    console.log(showDetails);
+  }, [showDetails]);
+
+  // JSX Template
+  const showGenresElements = showDetails.genres
+    ? showDetails.genres.map((genre) => {
+        return <span key={genre.id}>{genre.name}</span>;
+      })
+    : null;
+
+  // JSX Output
   return (
     <>
       <div
@@ -10,17 +50,30 @@ export default function Modal({ handleCloseModal, show, baseImgPath }) {
       <div className="modal-container">
         <div className="modal-container-left">
           <div className="tags">
-            <span>{show.first_air_date || show.release_date}</span>
-            <span>{show.media_type || "movie"}</span>
-            <span>{show.original_language}</span>
-            <span>{show.vote_average}</span>
+            <span className="year">
+              {(show.first_air_date || show.release_date).slice(0, 4)}
+            </span>
+            <span className="media-type">{show.media_type || "movie"}</span>
+            <span className="language">{show.original_language}</span>
+
+            {/* Rating that is 0 will not be shown */}
+            <span className="rating">
+              {show.vote_average === 0
+                ? null
+                : Math.round(show.vote_average * 10) / 10}
+            </span>
           </div>
+
           <h1 className="title">{show.name || show.title}</h1>
-          <div className="genre-tags">
-            <span>{show.genre_ids[0]}</span>
-            <span>{show.genre_ids[1] || null}</span>
-            <span>{show.genre_ids[2] || null}</span>
-          </div>
+
+          {/* Only Movies have tagline */}
+
+          {show.media_type ? null : (
+            <h2 className="tagline">{showDetails.tagline}</h2>
+          )}
+
+          <div className="genre-tags">{showGenresElements}</div>
+
           <p className="plot-overview">{show.overview}</p>
         </div>
         <img src={baseImgPath + show.backdrop_path} alt="" />

@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import "../SingleShow/SingleShow.css";
 
 export default function SingleShow({
@@ -6,6 +7,10 @@ export default function SingleShow({
   imageType,
   handleDisplayModal,
 }) {
+  /* -------------------------------------------------------------------------- */
+  /*                             Show's Details API                             */
+  /* -------------------------------------------------------------------------- */
+
   return (
     <>
       <img

@@ -1,3 +1,25 @@
+@keyframes slideIn {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOut {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+}
+
 .modal-background-overlay {
   position: fixed;
   width: 100%;
@@ -35,4 +57,43 @@
   cursor: default;
   filter: brightness(0.28);
   z-index: -1;
+}
+
+.modal-container-left {
+  width: 50%;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 2.5rem;
+}
+
+.modal-container > .modal-container-left > .tags > span {
+  padding: 0.5rem;
+  margin-right: 1rem;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.modal-container > .modal-container-left > .tags > span:nth-child(1) {
+  background-color: rgb(160, 31, 5);
+}
+
+.modal-container > .modal-container-left > .tags > span:nth-child(2) {
+  background-color: rgb(35, 100, 112);
+}
+
+.modal-container > .modal-container-left > .tags > span:nth-child(3) {
+  background-color: rgb(162, 32, 63);
+}
+
+.modal-container > .modal-container-left > .tags > span:nth-child(4) {
+  background-color: rgb(156, 116, 15);
+}
+
+.modal-container-left > .title {
+  font-size: 4rem;
+  text-transform: uppercase;
+  font-weight: bold;
 }

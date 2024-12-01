@@ -1,8 +1,8 @@
 import "../Bento/Bento.css";
 import "../SingleTrailer/SingleTrailer.jsx";
-import SingleMovie from "../SingleTrailer/SingleTrailer.jsx";
 import SingleShow from "../SingleShow/SingleShow.jsx";
 import { useEffect, useState } from "react";
+import SingleTrailer from "../SingleTrailer/SingleTrailer.jsx";
 
 export default function Bento(props) {
   function getUniqueItems(amount, arr) {
@@ -81,7 +81,7 @@ export default function Bento(props) {
         </div>
         <div className="new-trailer-container">
           <div>
-            <SingleMovie videoURL={props.videoURL} />
+            <SingleTrailer videoURL={props.videoURL} />
           </div>
         </div>
         <div className="recommend-container">
