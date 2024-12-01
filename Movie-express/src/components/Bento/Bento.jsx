@@ -88,6 +88,10 @@ export default function Bento(props) {
           <h2>TV Series Everyone's watching</h2>
           {tvSeriesToDisplay.length > 0 ? tvSeriesElements : <p>No Series</p>}
         </div>
+        <div className="recommend-container">
+          <h2>TV Series Everyone's watching</h2>
+          {tvSeriesToDisplay.length > 0 ? tvSeriesElements : <p>No Series</p>}
+        </div>
       </div>
     </>
   );

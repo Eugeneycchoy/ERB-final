@@ -6,7 +6,7 @@
   width: 90%;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
   gap: 10px;
   border-radius: 20px;
   grid-auto-rows: 200px; /* Set a fixed height for grid rows */
@@ -78,6 +78,7 @@
 .recommend-container {
   /* litte grid  */
   grid-column: 1fr;
+  grid-template-rows: ;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   gap: 1rem;
@@ -90,7 +91,7 @@
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4) inset;
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
-  max-height: 30rem;
+  min-width: 100%;
 }
 
 .recommend-container img {
