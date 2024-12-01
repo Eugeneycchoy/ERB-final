@@ -41,6 +41,9 @@ export default function Modal({ handleCloseModal, show, baseImgPath }) {
     : null;
 
   // JSX Output
+
+  // modal slide down animation "modal-container"
+
   return (
     <>
       <div
