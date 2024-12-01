@@ -213,6 +213,7 @@ function App() {
               artists={topArtists}
               videoURL={trailerVideo}
               tvSeries={tvSeries}
+              movies={popularMovies}
               handleDisplayModal={displayModal}
             />
           </>

@@ -4,7 +4,14 @@ import SingleShow from "../SingleShow/SingleShow.jsx";
 import { useEffect, useState } from "react";
 import SingleTrailer from "../SingleTrailer/SingleTrailer.jsx";
 
-export default function Bento(props) {
+export default function Bento({
+  tvSeries,
+  movies,
+  baseUrl,
+  videoURL,
+  handleDisplayModal,
+  artists,
+}) {
   function getUniqueItems(amount, arr) {
     if (amount > arr.length) {
       throw new Error("Amount exceeds the number of available items");
@@ -15,17 +22,29 @@ export default function Bento(props) {
   }
 
   const [tvSeriesToDisplay, setTvSeriesToDisplay] = useState([]);
+  const [moviesToDisplay, setMoviesToDisplay] = useState([]);
 
   useEffect(() => {
-    if (props.tvSeries.length > 0) {
+    if (tvSeries.length > 0) {
       try {
-        const uniqueItems = getUniqueItems(3, props.tvSeries);
-        setTvSeriesToDisplay(uniqueItems);
+        const uniqueTvSeries = getUniqueItems(3, tvSeries);
+        setTvSeriesToDisplay(uniqueTvSeries);
       } catch (error) {
         console.error(error.message);
       }
     }
-  }, [props.tvSeries]);
+  }, [tvSeries]);
+
+  useEffect(() => {
+    if (movies.length > 0) {
+      try {
+        const uniqueMovies = getUniqueItems(3, movies);
+        setMoviesToDisplay(uniqueMovies);
+      } catch (error) {
+        console.log(error.message);
+      }
+    }
+  }, [movies]);
 
   // JSX Template
   const tvSeriesElements = tvSeriesToDisplay.map((tvShow) => {
@@ -40,8 +59,27 @@ export default function Bento(props) {
       <div key={tvShow.id}>
         <SingleShow
           show={tvShow}
-          baseUrl={props.baseUrl}
-          handleDisplayModal={props.handleDisplayModal}
+          baseUrl={baseUrl}
+          handleDisplayModal={handleDisplayModal}
+        />
+      </div>
+    );
+  });
+
+  const movieElements = moviesToDisplay.map((movie) => {
+    if (!movie || !movie.id || !movie.poster_path) {
+      console.error("Invalid movie data:", movie);
+      return null;
+    }
+    return (
+      // <div key={tvShow.id}>
+      //   <img src={props.baseUrl + tvShow.poster_path} alt={tvShow.name} />
+      // </div>
+      <div key={movie.id}>
+        <SingleShow
+          show={movie}
+          baseUrl={baseUrl}
+          handleDisplayModal={handleDisplayModal}
         />
       </div>
     );
@@ -54,25 +92,16 @@ export default function Bento(props) {
       <div className="movie-bento-container">
         <div className="artrists-container">
           <h2>TOP STARS OF THE WEEK</h2>
-          {props.artists && props.artists.length >= 3 ? (
+          {artists && artists.length >= 3 ? (
             <>
               <div>
-                <img
-                  src={props.baseUrl + props.artists[0].profile_path}
-                  alt=""
-                />
+                <img src={baseUrl + artists[0].profile_path} alt="" />
               </div>
               <div>
-                <img
-                  src={props.baseUrl + props.artists[1].profile_path}
-                  alt=""
-                />
+                <img src={baseUrl + artists[1].profile_path} alt="" />
               </div>
               <div>
-                <img
-                  src={props.baseUrl + props.artists[2].profile_path}
-                  alt=""
-                />
+                <img src={baseUrl + artists[2].profile_path} alt="" />
               </div>
             </>
           ) : (
@@ -81,16 +110,16 @@ export default function Bento(props) {
         </div>
         <div className="new-trailer-container">
           <div>
-            <SingleTrailer videoURL={props.videoURL} />
+            <SingleTrailer videoURL={videoURL} />
           </div>
         </div>
-        <div className="recommend-container">
-          <h2>TV Series Everyone's watching</h2>
+        <div className="recommend-container tv-series">
+          <h2>Binge-Worthy TV Shows</h2>
           {tvSeriesToDisplay.length > 0 ? tvSeriesElements : <p>No Series</p>}
         </div>
-        <div className="recommend-container">
-          <h2>TV Series Everyone's watching</h2>
-          {tvSeriesToDisplay.length > 0 ? tvSeriesElements : <p>No Series</p>}
+        <div className="recommend-container movies">
+          <h2>Latest Movies</h2>
+          {moviesToDisplay.length > 0 ? movieElements : <p>No Movies</p>}
         </div>
       </div>
     </>

@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import "../Modal/Modal.css";
+import sg from "../../assets/sg.jpeg";
+import SingleActor from "../SingleActor/SingleActor";
 
 export default function Modal({ handleCloseModal, show, baseImgPath }) {
   /* -------------------------------------------------------------------------- */
@@ -40,6 +42,35 @@ export default function Modal({ handleCloseModal, show, baseImgPath }) {
       })
     : null;
 
+  /* -------------------------------------------------------------------------- */
+  /*                               Show's Cast API                              */
+  /* -------------------------------------------------------------------------- */
+  const castUrl = show.media_type
+    ? `https://api.themoviedb.org/3/tv/${show.id}/credits?language=en-US`
+    : `https://api.themoviedb.org/3/movie/${show.id}/credits?language=en-US`;
+  const castOptions = {
+    method: "GET",
+    headers: {
+      accept: "application/json",
+      Authorization:
+        "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3ZTJjNGFhNGMxMmQ2ZmEyMGY0ZmUxMjBkYmE1NmI3OCIsIm5iZiI6MTczMjg5MzA3OS42NDI3ODI3LCJzdWIiOiI2NzQ3ZGZlNjhiYjg0YWI4MDhjZjg4M2EiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.sfnRZ_raRUd8IfLJ7XPuXg0wpBtlGeWxqAuWr_0fBhc",
+    },
+  };
+
+  const [cast, setCast] = useState([]);
+
+  useEffect(() => {
+    fetch(castUrl, castOptions)
+      .then((res) => res.json())
+      .then((castData) => setCast(castData.cast));
+  }, [cast]);
+
+  const castElements = cast
+    ? cast.slice(0, 5).map((person) => {
+        return <SingleActor person={person} baseImgPath={baseImgPath} />;
+      })
+    : null;
+
   // JSX Output
 
   // modal slide down animation "modal-container"
@@ -73,8 +104,14 @@ export default function Modal({ handleCloseModal, show, baseImgPath }) {
           <div className="genre-tags">{showGenresElements}</div>
 
           {show.overview && <p className="plot-overview">{show.overview}</p>}
+
+          <div className="cast-list">{castElements}</div>
         </div>
-        <img src={baseImgPath + show.backdrop_path} alt="" />
+        <img
+          className="show_backdrop_img"
+          src={baseImgPath + show.backdrop_path}
+          alt=""
+        />
       </div>
     </>
   );
