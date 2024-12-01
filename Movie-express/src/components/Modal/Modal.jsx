@@ -67,7 +67,13 @@ export default function Modal({ handleCloseModal, show, baseImgPath }) {
 
   const castElements = cast
     ? cast.slice(0, 5).map((person) => {
-        return <SingleActor person={person} baseImgPath={baseImgPath} />;
+        return (
+          <SingleActor
+            key={person.id}
+            person={person}
+            baseImgPath={baseImgPath}
+          />
+        );
       })
     : null;
 

@@ -1,0 +1,23 @@
+.actor-container {
+  position: relative;
+  cursor: pointer;
+}
+
+.actor-container:hover {
+  transform: scale(1.1);
+  transition: 0.25s all ease-in-out;
+}
+
+.actor-name {
+  min-width: 5rem;
+  max-width: 7rem;
+  border: 1px solid #fff;
+  background-color: rgb(37, 37, 37);
+  color: white;
+  position: absolute;
+  bottom: -3rem;
+  left: 20px;
+  z-index: 1500;
+  padding: 0.5rem;
+  border-radius: 20px;
+}
