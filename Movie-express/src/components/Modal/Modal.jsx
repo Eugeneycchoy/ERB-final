@@ -57,24 +57,19 @@ export default function Modal({ handleCloseModal, show, baseImgPath }) {
             <span className="language">{show.original_language}</span>
 
             {/* Rating that is 0 will not be shown */}
-            <span className="rating">
-              {show.vote_average === 0
-                ? null
-                : Math.round(show.vote_average * 10) / 10}
-            </span>
+
+            {show.vote_average > 0 && (
+              <span className="rating">
+                {Math.round(show.vote_average * 10) / 10}
+              </span>
+            )}
           </div>
 
           <h1 className="title">{show.name || show.title}</h1>
 
-          {/* Only Movies have tagline */}
-
-          {show.media_type ? null : (
-            <h2 className="tagline">{showDetails.tagline}</h2>
-          )}
-
           <div className="genre-tags">{showGenresElements}</div>
 
-          <p className="plot-overview">{show.overview}</p>
+          {show.overview && <p className="plot-overview">{show.overview}</p>}
         </div>
         <img src={baseImgPath + show.backdrop_path} alt="" />
       </div>
