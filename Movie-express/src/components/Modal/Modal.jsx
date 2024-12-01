@@ -70,10 +70,12 @@ export default function Modal({
   /* -------------------------------------------------------------------------- */
   const [trailerKey, setTrailerKey] = useState(null);
   const youtubeBasePath = "https://www.youtube.com/watch?v=";
-  const movieTrailerUrl = `https://api.themoviedb.org/3/movie/${show.id}/videos?language=en-US`;
+  const showTrailerUrl = show.media_type
+    ? `https://api.themoviedb.org/3/tv/${show.id}/videos?language=en-US`
+    : `https://api.themoviedb.org/3/movie/${show.id}/videos?language=en-US`;
 
   useEffect(() => {
-    fetch(movieTrailerUrl, apiOptions)
+    fetch(showTrailerUrl, apiOptions)
       .then((res) => res.json())
       .then((resJSON) => {
         if (resJSON.results && resJSON.results.length > 0) {
@@ -83,7 +85,7 @@ export default function Modal({
         }
       })
       .catch((error) => console.error("Error fetching trailer:", error));
-  }, [movieTrailerUrl]);
+  }, [showTrailerUrl]);
 
   function playTrailer() {
     if (trailerKey) {
@@ -128,11 +130,10 @@ export default function Modal({
           {show.overview && <p className="plot-overview">{show.overview}</p>}
 
           <div className="cast-list">{castElements}</div>
-          {!show.media_type && (
-            <button className="trailer-button" onClick={playTrailer}>
-              Watch Trailer
-            </button>
-          )}
+
+          <button className="trailer-button" onClick={playTrailer}>
+            Watch Trailer
+          </button>
         </div>
         <img
           className="show_backdrop_img"
