@@ -43,7 +43,7 @@ function App() {
     "https://api.themoviedb.org/3/movie/popular?language=en-US&page=1&api_key=" +
     apiKey;
 
-  const popularOptions = {
+  const options = {
     method: "GET",
     headers: {
       accept: "application/json",
@@ -57,7 +57,7 @@ function App() {
   // Trending Movies data is ALWAYS retrieved once when the page loads
   useEffect(() => {
     async function fetchTrendingData() {
-      const data = await getMovieData(popularUrl, popularOptions);
+      const data = await getMovieData(popularUrl, options);
       setPopularMovies(data.results);
     }
 
@@ -99,20 +99,12 @@ function App() {
   /* -------------------------------------------------------------------------- */
   const artistUrl =
     "https://api.themoviedb.org/3/person/popular?language=en-US&page=1";
-  const artistOptions = {
-    method: "GET",
-    headers: {
-      accept: "application/json",
-      Authorization:
-        "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3ZTJjNGFhNGMxMmQ2ZmEyMGY0ZmUxMjBkYmE1NmI3OCIsIm5iZiI6MTczMjg5MzA3OS42NDI3ODI3LCJzdWIiOiI2NzQ3ZGZlNjhiYjg0YWI4MDhjZjg4M2EiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.sfnRZ_raRUd8IfLJ7XPuXg0wpBtlGeWxqAuWr_0fBhc",
-    },
-  };
 
   const [topArtists, setTopArtists] = useState([]);
 
   useEffect(() => {
     async function fetchArtistData() {
-      const data = await getMovieData(artistUrl, artistOptions);
+      const data = await getMovieData(artistUrl, options);
       const artistList = [];
       for (let i = 0; i < 3; i++) {
         artistList.push(data.results[i]);
@@ -136,21 +128,13 @@ function App() {
   const [trailerVideo, setTrailerVideo] = useState(null);
   const [randomTrailerMovie, setRandomTrailerMovie] = useState("1100782");
   const videoTrailerUrl = `https://api.themoviedb.org/3/movie/${randomTrailerMovie}/videos?language=en-US`;
-  const videoTrailerOptions = {
-    method: "GET",
-    headers: {
-      accept: "application/json",
-      Authorization:
-        "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3ZTJjNGFhNGMxMmQ2ZmEyMGY0ZmUxMjBkYmE1NmI3OCIsIm5iZiI6MTczMjg5MzA3OS42NDI3ODI3LCJzdWIiOiI2NzQ3ZGZlNjhiYjg0YWI4MDhjZjg4M2EiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.sfnRZ_raRUd8IfLJ7XPuXg0wpBtlGeWxqAuWr_0fBhc",
-    },
-  };
 
   useEffect(() => {
     try {
       setRandomTrailerMovie(
         popularMovies[Math.floor(Math.random() * popularMovies.length)].id
       );
-      fetch(videoTrailerUrl, videoTrailerOptions)
+      fetch(videoTrailerUrl, options)
         .then((res) => res.json())
         .then((data) => setTrailerVideo(youtubeBaseUrl + data.results[0].key));
     } catch (e) {
@@ -168,17 +152,9 @@ function App() {
 
   const tvSeriesUrl =
     "https://api.themoviedb.org/3/trending/tv/day?language=en-US";
-  const tvSeriesOptions = {
-    method: "GET",
-    headers: {
-      accept: "application/json",
-      Authorization:
-        "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3ZTJjNGFhNGMxMmQ2ZmEyMGY0ZmUxMjBkYmE1NmI3OCIsIm5iZiI6MTczMjg5MzA3OS42NDI3ODI3LCJzdWIiOiI2NzQ3ZGZlNjhiYjg0YWI4MDhjZjg4M2EiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.sfnRZ_raRUd8IfLJ7XPuXg0wpBtlGeWxqAuWr_0fBhc",
-    },
-  };
 
   useEffect(() => {
-    fetch(tvSeriesUrl, tvSeriesOptions)
+    fetch(tvSeriesUrl, options)
       .then((res) => res.json())
       .then((tvSeriesData) => setTvSeries(tvSeriesData.results));
   }, []);
@@ -192,6 +168,7 @@ function App() {
           baseImgPath={movieImgBasePath}
           handleCloseModal={closeModal}
           show={show}
+          apiOptions={options}
         />
       )}
       <main>

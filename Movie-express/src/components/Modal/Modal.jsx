@@ -3,7 +3,12 @@ import "../Modal/Modal.css";
 import sg from "../../assets/sg.jpeg";
 import SingleActor from "../SingleActor/SingleActor";
 
-export default function Modal({ handleCloseModal, show, baseImgPath }) {
+export default function Modal({
+  handleCloseModal,
+  show,
+  baseImgPath,
+  apiOptions,
+}) {
   /* -------------------------------------------------------------------------- */
   /*                              Show Details API                              */
   /* -------------------------------------------------------------------------- */
@@ -12,19 +17,10 @@ export default function Modal({ handleCloseModal, show, baseImgPath }) {
     ? `https://api.themoviedb.org/3/tv/${show.id}?language=en-US`
     : `https://api.themoviedb.org/3/movie/${show.id}?language=en-US`;
 
-  const showDetailsOptions = {
-    method: "GET",
-    headers: {
-      accept: "application/json",
-      Authorization:
-        "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3ZTJjNGFhNGMxMmQ2ZmEyMGY0ZmUxMjBkYmE1NmI3OCIsIm5iZiI6MTczMjg5MzA3OS42NDI3ODI3LCJzdWIiOiI2NzQ3ZGZlNjhiYjg0YWI4MDhjZjg4M2EiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.sfnRZ_raRUd8IfLJ7XPuXg0wpBtlGeWxqAuWr_0fBhc",
-    },
-  };
-
   const [showDetails, setShowDetails] = useState([]);
 
   useEffect(() => {
-    fetch(showDetailsUrl, showDetailsOptions)
+    fetch(showDetailsUrl, apiOptions)
       .then((res) => res.json())
       .then((resJSON) => {
         setShowDetails(resJSON);
@@ -48,19 +44,11 @@ export default function Modal({ handleCloseModal, show, baseImgPath }) {
   const castUrl = show.media_type
     ? `https://api.themoviedb.org/3/tv/${show.id}/credits?language=en-US`
     : `https://api.themoviedb.org/3/movie/${show.id}/credits?language=en-US`;
-  const castOptions = {
-    method: "GET",
-    headers: {
-      accept: "application/json",
-      Authorization:
-        "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3ZTJjNGFhNGMxMmQ2ZmEyMGY0ZmUxMjBkYmE1NmI3OCIsIm5iZiI6MTczMjg5MzA3OS42NDI3ODI3LCJzdWIiOiI2NzQ3ZGZlNjhiYjg0YWI4MDhjZjg4M2EiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.sfnRZ_raRUd8IfLJ7XPuXg0wpBtlGeWxqAuWr_0fBhc",
-    },
-  };
 
   const [cast, setCast] = useState([]);
 
   useEffect(() => {
-    fetch(castUrl, castOptions)
+    fetch(castUrl, apiOptions)
       .then((res) => res.json())
       .then((castData) => setCast(castData.cast));
   }, [cast]);
@@ -76,6 +64,12 @@ export default function Modal({ handleCloseModal, show, baseImgPath }) {
         );
       })
     : null;
+
+  /* -------------------------------------------------------------------------- */
+  /*                             Movie Trailers API                            */
+  /* -------------------------------------------------------------------------- */
+
+  function playTrailer() {}
 
   // JSX Output
 
@@ -112,6 +106,9 @@ export default function Modal({ handleCloseModal, show, baseImgPath }) {
           {show.overview && <p className="plot-overview">{show.overview}</p>}
 
           <div className="cast-list">{castElements}</div>
+          {!show.media_type && (
+            <button onClick={playTrailer}>Watch Trailer</button>
+          )}
         </div>
         <img
           className="show_backdrop_img"
