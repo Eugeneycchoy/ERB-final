@@ -21,6 +21,12 @@ export default function MovieCarousel(props) {
             imageType="backdrop"
             handleDisplayModal={props.handleDisplayModal}
           />
+          {/* <img
+            className="d-block"
+            src={basicImgPath + movie.backdrop_path}
+            alt={movie.title}
+          /> */}
+          {/* <div className="movie-img-dark-overlay"></div> */}
           <div className="movie-content-text">
             <h2>{movie.title}</h2>
             <p>{movie.overview}</p>

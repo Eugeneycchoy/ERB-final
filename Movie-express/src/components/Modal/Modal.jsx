@@ -101,35 +101,6 @@ export default function Modal({
     }
   }
 
-  /* -------------------------------------------------------------------------- */
-  /*                              Movie Gallery API                             */
-  /* -------------------------------------------------------------------------- */
-  const movieGalleryUrl = `https://api.themoviedb.org/3/movie/${show.id}/images`;
-  const [movieGallery, setMovieGallery] = useState([]);
-  const [randomImgPath, setRandomImgPath] = useState("");
-
-  useEffect(() => {
-    fetch(movieGalleryUrl, apiOptions)
-      .then((res) => res.json())
-      .then((movieGalleryData) => {
-        if (
-          movieGalleryData.backdrops &&
-          movieGalleryData.backdrops.length > 0
-        ) {
-          setMovieGallery(movieGalleryData.backdrops);
-        } else {
-          console.log("Movie Gallery is not available");
-        }
-      })
-      .catch((error) => console.error("Error fetching movie gallery:", error));
-  }, [movieGalleryUrl, apiOptions]);
-
-  useEffect(() => {
-    if (movieGallery.length > 0) {
-      const randomIndex = Math.floor(Math.random() * movieGallery.length);
-      setRandomImgPath(baseImgPath + movieGallery[randomIndex].file_path);
-    }
-  }, [movieGallery, baseImgPath]);
   // JSX Output
 
   // modal slide down animation "modal-container"
@@ -172,15 +143,11 @@ export default function Modal({
             </button>
           )}
         </div>
-        {!show.media_type ? (
-          <img className="show_backdrop_img" src={randomImgPath} alt="" />
-        ) : (
-          <img
-            className="show_backdrop_img"
-            src={baseImgPath + show.backdrop_path}
-            alt=""
-          />
-        )}
+        <img
+          className="show_backdrop_img"
+          src={baseImgPath + show.backdrop_path}
+          alt=""
+        />
       </div>
     </>
   );

@@ -1,4 +1,5 @@
 import "../MovieList/MovieList.css";
+import cannotFindImg from "../../assets/thistv.png";
 import SingleShow from "../SingleShow/SingleShow";
 
 export default function MovieList(props) {
