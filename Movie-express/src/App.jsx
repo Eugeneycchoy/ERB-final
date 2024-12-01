@@ -21,10 +21,16 @@ function App() {
   /*                             Show Modal Overlay                             */
   /* -------------------------------------------------------------------------- */
   const [showModal, setShowModal] = useState(false);
+  const [show, setShow] = useState(null);
 
-  function displayModal() {
+  function displayModal(show) {
+    setShow(show);
     setShowModal(true);
   }
+
+  useEffect(() => {
+    console.log(show);
+  }, [show]);
 
   function closeModal() {
     setShowModal(false);
@@ -181,7 +187,13 @@ function App() {
     <>
       {/* Adding an onSearch Listener to the Navbar*/}
       <Navbar onSearch={handleSearch} onLogoClick={handleLogoClick} />
-      {showModal && <Modal handleCloseModal={closeModal} />}
+      {showModal && (
+        <Modal
+          baseImgPath={movieImgBasePath}
+          handleCloseModal={closeModal}
+          show={show}
+        />
+      )}
       <main>
         {searchResults.length > 0 ? (
           <MovieList

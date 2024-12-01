@@ -1,9 +1,13 @@
-img {
+.single-show-img img,
+.movie-container img,
+.carousel-item img {
   cursor: pointer;
   filter: brightness(85%);
 }
 
-img:hover {
+.single-show-img img:hover,
+.movie-container img:hover,
+.carousel-item img:hover {
   filter: brightness(100%);
   transition: 0.2s all ease-in-out;
 }

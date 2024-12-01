@@ -17,7 +17,7 @@ export default function SingleShow({
             : baseUrl + show.poster_path
         }
         alt=""
-        onClick={handleDisplayModal}
+        onClick={() => handleDisplayModal(show)}
       />
     </>
   );
