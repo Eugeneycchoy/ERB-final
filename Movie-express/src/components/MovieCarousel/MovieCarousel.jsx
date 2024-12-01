@@ -1,6 +1,7 @@
 import "../MovieCarousel/MovieCarousel.css";
+import SingleShow from "../SingleShow/SingleShow.jsx";
 
-export default function MovieList(props) {
+export default function MovieCarousel(props) {
   const basicImgPath = "https://image.tmdb.org/t/p/original";
   // props.movies = [movie, movie, movie...]
 
@@ -14,12 +15,18 @@ export default function MovieList(props) {
     return (
       <div className={itemClass} key={movie.id}>
         <div className="movie-content">
-          <img
+          <SingleShow
+            show={movie}
+            baseUrl={basicImgPath}
+            imageType="backdrop"
+            handleDisplayModal={props.handleDisplayModal}
+          />
+          {/* <img
             className="d-block"
             src={basicImgPath + movie.backdrop_path}
             alt={movie.title}
-          />
-          <div className="movie-img-dark-overlay"></div>
+          /> */}
+          {/* <div className="movie-img-dark-overlay"></div> */}
           <div className="movie-content-text">
             <h2>{movie.title}</h2>
             <p>{movie.overview}</p>
@@ -35,27 +42,33 @@ export default function MovieList(props) {
         <h2 id="trending-tag">{props.tag}</h2>
         <div
           id="carouselExampleIndicators"
-          class="carousel slide"
+          className="carousel slide"
           data-ride="carousel"
         >
-          <div class="carousel-inner">{movieElements}</div>
+          <div className="carousel-inner">{movieElements}</div>
           <a
-            class="carousel-control-prev"
+            className="carousel-control-prev"
             href="#carouselExampleIndicators"
             role="button"
             data-slide="prev"
           >
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
+            <span
+              className="carousel-control-prev-icon"
+              aria-hidden="true"
+            ></span>
+            <span className="sr-only">Previous</span>
           </a>
           <a
-            class="carousel-control-next"
+            className="carousel-control-next"
             href="#carouselExampleIndicators"
             role="button"
             data-slide="next"
           >
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
+            <span
+              className="carousel-control-next-icon"
+              aria-hidden="true"
+            ></span>
+            <span className="sr-only">Next</span>
           </a>
         </div>
       </div>

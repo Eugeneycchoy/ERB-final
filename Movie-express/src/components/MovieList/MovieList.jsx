@@ -1,4 +1,6 @@
 import "../MovieList/MovieList.css";
+import cannotFindImg from "../../assets/thistv.png";
+import SingleShow from "../SingleShow/SingleShow";
 
 export default function MovieList(props) {
   // JSX template
@@ -6,7 +8,22 @@ export default function MovieList(props) {
     return (
       <div className="movie-container">
         <div className="movie-container-dark-overlay"></div>
-        <img src={props.baseImgPath + movie.poster_path} alt="" />
+
+        <SingleShow
+          key={movie.id}
+          show={movie}
+          baseUrl={props.baseImgPath}
+          imageType="poster"
+          handleDisplayModal={props.handleDisplayModal}
+        />
+        {/* <img
+          src={
+            (props.baseImgPath + movie.poster_path).includes("originalnull")
+              ? cannotFindImg
+              : props.baseImgPath + movie.poster_path
+          }
+          alt=""
+        /> */}
       </div>
     );
   });
