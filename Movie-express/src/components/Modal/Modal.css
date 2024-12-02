@@ -54,7 +54,15 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
   transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
   z-index: 9999;
-  overflow: hidden;
+  overflow-y: auto;
+}
+
+.modal-container-left {
+  width: 80%;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 }
 
 .show_backdrop_img {
@@ -71,6 +79,12 @@
 .modal-container.slide-in {
   transform: translate(-50%, -50%) scale(1);
   opacity: 1;
+  padding: 3rem;
+}
+
+.modal-container.slide-out {
+  opacity: 0;
+  padding: 3rem;
 }
 
 .modal-container-left > .title {
@@ -80,17 +94,8 @@
 }
 
 .modal-container .genre-tags > span {
-  border-radius: 20px;
-  padding: 0.6rem;
-  padding-block: 0.3rem;
-  margin-right: 1rem;
-  /* From https://css.glass */
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 16px;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border: 1px solid white;
+  padding: 0.5rem;
 }
 
 .cast-list {
@@ -105,6 +110,20 @@
   border-radius: 50%;
   object-fit: cover;
   object-position: center;
+  cursor: pointer;
+}
+
+.actor-container .actor-name {
+  min-width: 5rem;
+  max-width: 7rem;
+  background-color: rgb(37, 37, 37);
+  color: white;
+  position: absolute;
+  bottom: -3rem;
+  left: 20px;
+  z-index: 1500;
+  padding: 0.5rem;
+  border-radius: 20px;
 }
 
 .trailer-button {

@@ -28,10 +28,6 @@ function App() {
     setShowModal(true);
   }
 
-  useEffect(() => {
-    console.log(show);
-  }, [show]);
-
   function closeModal() {
     setShowModal(false);
   }
@@ -158,6 +154,10 @@ function App() {
       .then((res) => res.json())
       .then((tvSeriesData) => setTvSeries(tvSeriesData.results));
   }, []);
+
+  /* -------------------------------------------------------------------------- */
+  /*                               TV Series's API                              */
+  /* -------------------------------------------------------------------------- */
 
   return (
     <>
