@@ -101,15 +101,6 @@
   width: 6rem;
 }
 
-#root
-  > main
-  > div.movie-bento-container
-  > div.artrists-container
-  > h5.hiden-description.small-stars-container
-  > h5:nth-child(2) {
-  margin-left: 4rem;
-}
-
 /* hidden description */
 .hiden-description {
   display: none;
@@ -177,12 +168,20 @@
     border-radius: 20px;
   }
   .small-stars-container {
+    width: 200px;
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    flex-direction: row;
     border: none;
+    gap: 2rem;
   }
 
-  .artrists-container img {
+  #root
+    > main
+    > div.movie-bento-container
+    > div.artrists-container
+    > h5.hiden-description.small-stars-container
+    > h5:nth-child(2) {
+    margin-top: 8rem;
   }
-}
+
+ 
