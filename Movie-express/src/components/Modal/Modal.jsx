@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "../Modal/Modal.css";
 import sg from "../../assets/sg.jpeg";
 import SingleActor from "../SingleActor/SingleActor";
+import cannotFindImg from "../../../public/cannot-find-movie-poster.jpg";
 
 export default function Modal({
   handleCloseModal,
@@ -39,14 +40,26 @@ export default function Modal({
     fetch(showBackdropImgUrl, apiOptions)
       .then((res) => res.json())
       .then((resJSON) => {
-        setShowBackgroundImg(
-          baseImgPath +
-            resJSON.posters[
-              Math.ceil(Math.random() * resJSON.posters.length) - 1
-            ].file_path
-        );
-      });
-  }, [showBackgroundImg]);
+        const posters = resJSON.posters;
+        const backdrops = resJSON.backdrops;
+        try {
+          if (posters.length > 0) {
+            const randomPosterPath =
+              posters[Math.floor(Math.random() * posters.length)].file_path;
+            setShowBackgroundImg(baseImgPath + randomPosterPath);
+          } else if (backdrops.length > 0) {
+            const randomBackdropPath =
+              backdrops[Math.floor(Math.random() * backdrops.length)].file_path;
+            setShowBackgroundImg(baseImgPath + randomBackdropPath);
+          } else {
+            setShowBackgroundImg(cannotFindImg);
+          }
+        } catch (e) {
+          console.error(e);
+        }
+      })
+      .catch((error) => console.error("Error fetching poster:", error));
+  }, [showBackdropImgUrl, apiOptions, baseImgPath]);
 
   return (
     <>
