@@ -11,7 +11,6 @@
 .actor-container .actor-name {
   min-width: 5rem;
   max-width: 7rem;
-  border: 1px solid #fff;
   background-color: rgb(37, 37, 37);
   color: white;
   position: absolute;

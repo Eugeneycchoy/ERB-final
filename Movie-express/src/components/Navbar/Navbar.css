@@ -36,7 +36,7 @@ nav {
   font-family: UntitledWoodTypeThin;
   font-size: 2rem;
   font-weight: 100;
-  letter-spacing: 0px;
+  letter-spacing: -2px;
 }
 
 .navbar-top {
@@ -54,14 +54,17 @@ nav button {
   font-weight: bold;
   border: 1px transparent solid;
   border-radius: 20px;
-  cursor: pointer;
   margin-right: 5px;
   margin-top: 5px;
+  cursor: pointer;
+}
+
+#root > div > nav > div.search-container > button > img {
+  cursor: pointer;
 }
 
 .search-container {
   display: flex;
-
   margin-left: 4vw;
   border-radius: 20px;
   padding: 0px 0px 0px 15px;
@@ -71,13 +74,10 @@ nav button {
 
 .search-box {
   background-color: inherit;
-  cursor: pointer;
+  cursor: text;
   color: white;
   border: none;
   transition: 0.3s all ease-in-out;
-}
-.search-box:hover {
-  border: none;
 }
 
 .nav-mid {
@@ -109,11 +109,11 @@ nav button {
   border: none;
   opacity: 0.8;
   transition: 0.3s all ease-in-out;
+  cursor: pointer;
 }
 
 .nav-link:hover {
   color: rgba(255, 255, 255, 0.8);
-
   opacity: 1;
   box-shadow: 0px 0px 20px 2px rgba(255, 255, 255, 0.4);
 }

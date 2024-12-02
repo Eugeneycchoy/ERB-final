@@ -1,3 +1,7 @@
+* {
+  cursor: default;
+}
+
 @keyframes slideIn {
   from {
     transform: translateY(-100%);
@@ -133,10 +137,12 @@
 .trailer-button {
   width: 12rem;
   padding: 1rem;
-  border: 1px solid #cd201f;
+  box-shadow: 0px 0px 4px 4px #cd1f1f60;
   background-color: transparent;
   color: #fff;
   cursor: pointer;
+  border: none;
+  border-radius: 8px;
 }
 
 .trailer-button:hover {

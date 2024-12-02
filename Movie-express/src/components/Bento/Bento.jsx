@@ -86,6 +86,9 @@ export default function Bento({
   });
 
   // JSX Output
+
+  // className="hiden-description"
+
   return (
     <>
       {/* Bento */}
@@ -97,9 +100,14 @@ export default function Bento({
               <div>
                 <img src={baseUrl + artists[0].profile_path} alt="" />
               </div>
+              <h5 className="hiden-description">Sakura Kimochi</h5>
               <div>
                 <img src={baseUrl + artists[1].profile_path} alt="" />
               </div>
+              <h5 className="hiden-description small-stars-container">
+                <h5>Mia Khalifa</h5>
+                <h5> Black Nuggar</h5>
+              </h5>
               <div>
                 <img src={baseUrl + artists[2].profile_path} alt="" />
               </div>
