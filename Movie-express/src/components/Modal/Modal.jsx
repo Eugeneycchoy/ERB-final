@@ -83,9 +83,15 @@ export default function Modal({
               </span>
             )}
           </div>
+
+          {/* Show's H1 title */}
           <h1 className="title">{show.name || show.title}</h1>
+
+          {/* Show's overview */}
           {show.overview && <p className="plot-overview">{show.overview}</p>}
         </div>
+
+        {/* Background image */}
         {(baseImgPath + show.backdrop_path).includes("originalnull") ? (
           <img className="show_backdrop_img" src={showBackgroundImg} alt="" />
         ) : (

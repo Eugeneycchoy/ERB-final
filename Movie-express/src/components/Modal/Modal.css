@@ -120,3 +120,8 @@
   background-color: #cd201f;
   transition: 0.2s all ease-in-out;
 }
+
+.modal-container-left .tags span {
+  border: 1px solid white;
+  padding: 0.5rem;
+}
