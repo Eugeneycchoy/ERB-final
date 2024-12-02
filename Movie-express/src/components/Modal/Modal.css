@@ -1,7 +1,3 @@
-* {
-  cursor: default;
-}
-
 @keyframes slideIn {
   from {
     transform: translateY(-100%);
@@ -26,32 +22,39 @@
 
 .modal-background-overlay {
   position: fixed;
-  width: 100%;
-  height: 100%;
   top: 0;
   left: 0;
-  background-color: black;
-  z-index: 1001;
-  opacity: 0.5;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6);
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  z-index: 9998;
 }
 
+.modal-background-overlay.fade-in {
+  opacity: 0.9;
+}
+
+.modal-background-overlay.fade-out {
+  opacity: 0;
+}
+
+/* Modal Container Animations */
 .modal-container {
-  width: 70%;
-  height: 90%;
-  border: 1px solid white;
   position: fixed;
-  top: 2rem;
+  top: 50%;
   left: 50%;
-  transform: translateY(-50%);
-  transform: translateX(-50%);
-  z-index: 1002;
-  background-color: black;
-  border-radius: 20px;
+  transform: translate(-50%, -50%) scale(0.9);
+  opacity: 0;
+  width: 70%;
+  height: 80%;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  z-index: 9999;
   overflow: hidden;
-}
-
-.modal-container p {
-  opacity: 0.7;
 }
 
 .show_backdrop_img {
@@ -59,41 +62,15 @@
   top: 0;
   left: 0;
   object-fit: cover;
-  object-position: center;
   width: 100%;
   height: 100%;
-  cursor: default;
-  filter: brightness(0.28);
   z-index: -1;
+  filter: brightness(30%);
 }
 
-.modal-container-left {
-  width: 82%;
-  min-height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 2rem;
-  padding: 2.5rem;
-}
-
-.modal-container > .modal-container-left > .tags > span {
-  padding: 0.5rem;
-  margin-right: 1rem;
-  text-transform: uppercase;
-  font-weight: bold;
-}
-
-.modal-container > .modal-container-left > .tags > span:nth-child(1) {
-  background-color: rgb(160, 31, 5);
-}
-
-.modal-container > .modal-container-left > .tags > span:nth-child(2) {
-  background-color: rgb(35, 100, 112);
-}
-
-.modal-container > .modal-container-left > .tags > span:nth-child(3) {
-  background-color: rgb(162, 32, 63);
+.modal-container.slide-in {
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
 }
 
 .modal-container > .modal-container-left > .tags > span:nth-child(4) {
@@ -137,12 +114,10 @@
 .trailer-button {
   width: 12rem;
   padding: 1rem;
-  box-shadow: 0px 0px 4px 4px #cd1f1f60;
+  border: 1px solid #cd201f;
   background-color: transparent;
   color: #fff;
   cursor: pointer;
-  border: none;
-  border-radius: 8px;
 }
 
 .trailer-button:hover {

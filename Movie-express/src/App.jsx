@@ -169,6 +169,7 @@ function App() {
           handleCloseModal={closeModal}
           show={show}
           apiOptions={options}
+          isOpen={showModal}
         />
       )}
       <main>
