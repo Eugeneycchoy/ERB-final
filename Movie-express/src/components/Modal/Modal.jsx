@@ -29,6 +29,25 @@ export default function Modal({
     }, 300); // Match the CSS animation duration
   }
 
+  /* -------------------------------------------------------------------------- */
+  /*                                Movie Gallery                               */
+  /* -------------------------------------------------------------------------- */
+  const [showBackgroundImg, setShowBackgroundImg] = useState(null);
+  const showBackdropImgUrl = `https://api.themoviedb.org/3/movie/${show.id}/images`;
+
+  useEffect(() => {
+    fetch(showBackdropImgUrl, apiOptions)
+      .then((res) => res.json())
+      .then((resJSON) => {
+        setShowBackgroundImg(
+          baseImgPath +
+            resJSON.posters[
+              Math.ceil(Math.random() * resJSON.posters.length) - 1
+            ].file_path
+        );
+      });
+  }, [showBackgroundImg]);
+
   return (
     <>
       <div
@@ -54,11 +73,15 @@ export default function Modal({
           <h1 className="title">{show.name || show.title}</h1>
           {show.overview && <p className="plot-overview">{show.overview}</p>}
         </div>
-        <img
-          className="show_backdrop_img"
-          src={baseImgPath + show.backdrop_path}
-          alt=""
-        />
+        {(baseImgPath + show.backdrop_path).includes("originalnull") ? (
+          <img className="show_backdrop_img" src={showBackgroundImg} alt="" />
+        ) : (
+          <img
+            className="show_backdrop_img"
+            src={baseImgPath + show.backdrop_path}
+            alt=""
+          />
+        )}
       </div>
     </>
   );
