@@ -5,11 +5,12 @@ import MovieCarousel from "../src/components/MovieCarousel/MovieCarousel.jsx";
 import MovieList from "../src/components/MovieList/MovieList.jsx";
 import Bento from "../src/components/Bento/Bento.jsx";
 import Modal from "../src/components/Modal/Modal.jsx";
+import Footer from "../src/components/Footer/Footer.jsx";
 
 function App() {
   const movieImgBasePath = "https://image.tmdb.org/t/p/original";
   const youtubeBaseUrl = "https://www.youtube.com/embed/";
-  const youtubeTrailerBaseUrl = "https://www.youtube.com/watch?v="
+  const youtubeTrailerBaseUrl = "https://www.youtube.com/watch?v=";
   const apiKey = "7e2c4aa4c12d6fa20f4fe120dba56b78";
 
   async function getMovieData(url, options) {
@@ -85,7 +86,7 @@ function App() {
       console.error();
     }
   }
-  
+
   function handleLogoClick() {
     // reset search results
     setSearchResults([]);
@@ -123,14 +124,15 @@ function App() {
 
   const [trailerVideo, setTrailerVideo] = useState(null);
   const [randomTrailerMovie, setRandomTrailerMovie] = useState("1100782");
-  
+
   useEffect(() => {
     if (popularMovies && popularMovies.length > 0) {
-      const randomMovie = popularMovies[Math.floor(Math.random() * popularMovies.length)];
+      const randomMovie =
+        popularMovies[Math.floor(Math.random() * popularMovies.length)];
       setRandomTrailerMovie(randomMovie.id);
     }
   }, [popularMovies]);
-  
+
   useEffect(() => {
     if (randomTrailerMovie) {
       const videoTrailerUrl = `https://api.themoviedb.org/3/movie/${randomTrailerMovie}/videos?language=en-US`;
@@ -167,16 +169,16 @@ function App() {
   /* -------------------------------------------------------------------------- */
 
   function handleAnimationClick() {
- 
-    const animationSearchUrl = 'https://api.themoviedb.org/3/discover/movie?include_adult=true&include_video=false&language=en-US&page=1&sort_by=popularity.desc';
+    const animationSearchUrl =
+      "https://api.themoviedb.org/3/discover/movie?include_adult=true&include_video=false&language=en-US&page=1&sort_by=popularity.desc";
 
     fetch(animationSearchUrl, options)
       .then((res) => res.json())
       .then((resJSON) => {
-        const result = []
-        for(let item of resJSON.results) {
-          if (item.genre_ids.includes(16)){
-            result.push(item)
+        const result = [];
+        for (let item of resJSON.results) {
+          if (item.genre_ids.includes(16)) {
+            result.push(item);
           }
           setSearchResults(result);
         }
@@ -187,12 +189,12 @@ function App() {
   return (
     <>
       {/* Adding an onSearch Listener to the Navbar*/}
-      <Navbar 
-          onSearch={handleSearch} 
-          onLogoClick={handleLogoClick} 
-          onAnimationClick={handleAnimationClick} 
-          onActionClick={""} 
-          onComedyClick={""}
+      <Navbar
+        onSearch={handleSearch}
+        onLogoClick={handleLogoClick}
+        onAnimationClick={handleAnimationClick}
+        onActionClick={""}
+        onComedyClick={""}
       />
       {showModal && (
         <Modal
