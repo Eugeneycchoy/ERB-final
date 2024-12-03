@@ -162,31 +162,43 @@
   }
 }
 
-@media (max-width: 750px) {
-    body {
-      min-width: 600px;
-    }
-    .artrists-container {
-      grid-template-columns: 1fr;
-      grid-template-rows: 2fr;
-    }
+@media (max-width: 800px) {
+  body {
+    min-width: 600px;
+  }
+  .artrists-container {
+    grid-template-columns: 1fr;
+    grid-template-rows: 2fr;
+  }
 
-    div.artrists-container > div:nth-child(3) > img {
-      display: none;
-    }
+  #root > main > div.movie-bento-container > div.artrists-container > h2 {
+    line-height: 2rem;
+    font-size: 2.4rem;
+  }
 
-    div.artrists-container > div:nth-child(4) > img {
-      display: none;
-    }
+  #root
+    > main
+    > div.movie-bento-container
+    > div.artrists-container
+    > div:nth-child(2)
+    > img {
+  }
 
-    .recommend-container h2 {
-      font-size: 1rem !important;
-      padding-top: 1rem;
-    }
+  div.artrists-container > div:nth-child(3) > img {
+    display: none;
+  }
 
-    .recommend-container img {
-      height: 100%;
-      object-fit: contain;
-    }
+  div.artrists-container > div:nth-child(4) > img {
+    display: none;
+  }
+
+  .recommend-container h2 {
+    font-size: 1rem !important;
+    padding-top: 1rem;
+  }
+
+  .recommend-container img {
+    height: 100%;
+    object-fit: contain;
   }
 }

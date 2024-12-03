@@ -33,7 +33,7 @@ main {
   }
 }
 
-@media (max-width: 750px) {
+@media (max-width: 800px) {
   body {
     min-width: 600px;
     /* .artrists-container {
