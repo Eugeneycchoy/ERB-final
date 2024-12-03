@@ -94,8 +94,10 @@
 }
 
 .modal-container .genre-tags > span {
-  border: 1px solid white;
-  padding: 0.5rem;
+  padding: 8px;
+  border-radius: 4px;
+  box-shadow: 0 2px 2px rgba(0, 0, 0);
+  opacity: 0.9;
 }
 
 .cast-list {
