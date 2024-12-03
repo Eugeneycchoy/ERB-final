@@ -1,3 +1,7 @@
+body {
+  min-width: 1100px;
+}
+
 /* Bento */
 .movie-bento-container {
   margin: 0 auto;
@@ -92,15 +96,6 @@
   max-height: 496px;
 }
 
-.artrists-container h5 {
-  padding: 10px;
-  font-weight: bold;
-  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
-  opacity: 0.7;
-  width: 6rem;
-}
-
 /* hidden description */
 .hiden-description {
   display: none;
@@ -151,10 +146,6 @@
 }
 
 @media (min-width: 1200px) {
-
-  .hiden-description {
-    display: inline-block;
-  }
   .artrists-container {
     /* litte grid  */
     grid-column: 1fr;
@@ -165,21 +156,4 @@
     padding: 1rem;
     border-radius: 20px;
   }
-  .small-stars-container {
-    width: 200px;
-    display: flex;
-    flex-direction: row;
-    border: none;
-    gap: 1rem;
-  }
-
-  #root
-    > main
-    > div.movie-bento-container
-    > div.artrists-container
-    > h5.hiden-description.small-stars-container
-    > h5:nth-child(2) {
-    margin-top: 8rem;
-  }
-
- 
+}

@@ -105,7 +105,7 @@
   padding: 8px;
   border-radius: 4px;
   box-shadow: 0 2px 2px rgba(0, 0, 0);
-  opacity: 0.8;
+  opacity: 0.85;
 }
 
 .year {
@@ -147,7 +147,6 @@
   opacity: 0.8;
   border-radius: 8px;
   backdrop-filter: blur(10px);
-  h
 }
 .plot-overview {
   opacity: 0.8;
@@ -156,6 +155,7 @@
   backdrop-filter: blur(20px);
   border: 5px solid transparent;
   line-height: 1.4rem;
+  max-width: 60%;
 }
 
 .cast-list {
@@ -173,9 +173,8 @@
   object-position: center;
 }
 
-.actor-container{
-position: relative;
-
+.actor-container {
+  position: relative;
 }
 .actor-name {
   position: absolute;
@@ -183,6 +182,7 @@ position: relative;
   border-radius: 8px;
   background-color: rgba(128, 128, 128, 0.4);
   opacity: 0.85;
+  border: 1px solid gray;
 }
 
 .trailer-button {

@@ -100,14 +100,11 @@ export default function Bento({
               <div>
                 <img src={baseUrl + artists[0].profile_path} alt="" />
               </div>
-              <h5 className="hiden-description">Sakura Kimochi</h5>
+
               <div>
                 <img src={baseUrl + artists[1].profile_path} alt="" />
               </div>
-              <h5 className="hiden-description small-stars-container">
-                <p>Mia Khalifa</p>
-                <p> Black Nuggar</p>
-              </h5>
+
               <div>
                 <img src={baseUrl + artists[2].profile_path} alt="" />
               </div>
