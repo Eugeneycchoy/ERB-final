@@ -57,6 +57,7 @@
   transition: 0.3s all ease-in-out;
 } */
 
+/* 
 #trending-tag {
   position: absolute;
   z-index: 1000;
@@ -66,11 +67,12 @@
   border-radius: 25px;
   font-size: 14px;
   cursor: default;
-  /* From https://css.glass */
+  From https://css.glass 
   background: rgba(255, 255, 255, 0.14);
   border-radius: 16px;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(5.8px);
   -webkit-backdrop-filter: blur(5.8px);
   border: 1px solid rgba(255, 255, 255, 0.12);
-}
+  left: 5rem;
+} */
