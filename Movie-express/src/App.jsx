@@ -84,12 +84,11 @@ function App() {
       console.error();
     }
   }
-
+  
   function handleLogoClick() {
     // reset search results
     setSearchResults([]);
   }
-
   /* -------------------------------------------------------------------------- */
   /*                                 Artist API                                 */
   /* -------------------------------------------------------------------------- */
@@ -123,20 +122,27 @@ function App() {
 
   const [trailerVideo, setTrailerVideo] = useState(null);
   const [randomTrailerMovie, setRandomTrailerMovie] = useState("1100782");
-  const videoTrailerUrl = `https://api.themoviedb.org/3/movie/${randomTrailerMovie}/videos?language=en-US`;
-
+  
   useEffect(() => {
-    try {
-      setRandomTrailerMovie(
-        popularMovies[Math.floor(Math.random() * popularMovies.length)].id
-      );
-      fetch(videoTrailerUrl, options)
-        .then((res) => res.json())
-        .then((data) => setTrailerVideo(youtubeBaseUrl + data.results[0].key));
-    } catch (e) {
-      console.error(e.message);
+    if (popularMovies && popularMovies.length > 0) {
+      const randomMovie = popularMovies[Math.floor(Math.random() * popularMovies.length)];
+      setRandomTrailerMovie(randomMovie.id);
     }
   }, [popularMovies]);
+  
+  useEffect(() => {
+    if (randomTrailerMovie) {
+      const videoTrailerUrl = `https://api.themoviedb.org/3/movie/${randomTrailerMovie}/videos?language=en-US`;
+      fetch(videoTrailerUrl, options)
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.results && data.results.length > 0) {
+            setTrailerVideo(youtubeBaseUrl + data.results[0].key);
+          }
+        })
+        .catch((e) => console.error(e.message));
+    }
+  }, [randomTrailerMovie]);
 
   // const baseVideoURL = `http://api.themoviedb.org/3/movie/157336/videos?api_key=`;
   // const videoURL = baseVideoURL + apiKey;
@@ -175,7 +181,7 @@ function App() {
       <main>
         {searchResults.length > 0 ? (
           <MovieList
-            movies={searchResults}
+            shows={searchResults}
             baseImgPath={movieImgBasePath}
             handleDisplayModal={displayModal}
           />
