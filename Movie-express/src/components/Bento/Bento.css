@@ -37,6 +37,10 @@ body {
   grid-column: 1fr;
 }
 
+.hidden-artists {
+  display: none;
+}
+
 .recommend-container {
   grid-column: 1 / span 2;
 }
@@ -155,5 +159,9 @@ body {
     gap: 1rem;
     padding: 1rem;
     border-radius: 20px;
+  }
+
+  .hidden-artists {
+    display: inline-block;
   }
 }
