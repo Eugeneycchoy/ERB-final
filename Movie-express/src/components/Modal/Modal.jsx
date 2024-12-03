@@ -11,6 +11,10 @@ export default function Modal({
   apiOptions,
   isOpen,
 }) {
+  useEffect(() => {
+    console.log(show);
+  }, [show]);
+
   const [animate, setAnimate] = useState(false);
 
   // Trigger animation when the modal is opened
@@ -31,35 +35,101 @@ export default function Modal({
   }
 
   /* -------------------------------------------------------------------------- */
-  /*                                Movie Gallery                               */
+  /*                              Show's Detail API                             */
   /* -------------------------------------------------------------------------- */
-  const [showBackgroundImg, setShowBackgroundImg] = useState(null);
-  const showBackdropImgUrl = `https://api.themoviedb.org/3/movie/${show.id}/images`;
+  const [details, setDetails] = useState([]);
 
   useEffect(() => {
-    fetch(showBackdropImgUrl, apiOptions)
+    let detailsUrl;
+    if (show.media_type === "tv") {
+      detailsUrl = `https://api.themoviedb.org/3/tv/${show.id}?language=en-US`;
+    } else {
+      detailsUrl = `https://api.themoviedb.org/3/movie/${show.id}?language=en-US`;
+    }
+
+    fetch(detailsUrl, apiOptions)
       .then((res) => res.json())
-      .then((resJSON) => {
-        const posters = resJSON.posters;
-        const backdrops = resJSON.backdrops;
-        try {
-          if (posters.length > 0) {
-            const randomPosterPath =
-              posters[Math.floor(Math.random() * posters.length)].file_path;
-            setShowBackgroundImg(baseImgPath + randomPosterPath);
-          } else if (backdrops.length > 0) {
-            const randomBackdropPath =
-              backdrops[Math.floor(Math.random() * backdrops.length)].file_path;
-            setShowBackgroundImg(baseImgPath + randomBackdropPath);
-          } else {
-            setShowBackgroundImg(cannotFindImg);
-          }
-        } catch (e) {
-          console.error(e);
-        }
+      .then((resJSON) => setDetails(resJSON))
+      .catch((error) => console.error("Error fetching details:", error));
+  }, [show.id, show.media_type, apiOptions]);
+
+  useEffect(() => {
+    console.log(details);
+  }, [details]);
+
+  const genreTagElements = details.genres ? (
+    details.genres.map((genre) => <span key={genre.id}>{genre.name}</span>)
+  ) : (
+    <p>Loading...</p>
+  );
+
+  const durationElement = details.runtime ? (
+    <p>
+      {Math.floor(details.runtime / 60)}hr {details.runtime % 60} minutes
+    </p>
+  ) : (
+    <p>Loading</p>
+  );
+
+  const lastEpisode = details.last_episode_to_air
+    ? details.last_episode_to_air.name
+    : null;
+
+  /* -------------------------------------------------------------------------- */
+  /*                               Show's Cast API                              */
+  /* -------------------------------------------------------------------------- */
+  const [showCast, setShowCast] = useState([]); // showCast.cast for the actors
+
+  const showCastUrl = show.media_type
+    ? `https://api.themoviedb.org/3/tv/${show.id}/credits?language=en-US`
+    : `https://api.themoviedb.org/3/movie/${show.id}/credits?language=en-US`;
+
+  useEffect(() => {
+    fetch(showCastUrl, apiOptions)
+      .then((res) => res.json())
+      .then((resJSON) => setShowCast(resJSON))
+      .catch((error) => console.error("Error fetching details:", error));
+  }, [show.id, show.media_type, apiOptions]);
+
+  useEffect(() => {
+    console.log(showCast);
+  }, [showCast]);
+
+  function showActorName(id) {
+    document.querySelector(`.actor-name-${id}`).classList.remove("hide");
+  }
+
+  function hideActorName(id) {
+    document.querySelector(`.actor-name-${id}`).classList.add("hide");
+  }
+
+  const castElements = showCast.cast
+    ? showCast.cast.slice(0, 5).map((person, index) => {
+        return (
+          <div className="actor-container" key={person.id}>
+            <img
+              onMouseEnter={() => showActorName(index)}
+              onMouseOut={() => hideActorName(index)}
+              src={baseImgPath + person.profile_path}
+              alt=""
+            />
+            <div className={`actor-name actor-name-${index} hide`}>
+              {person.name}
+            </div>
+          </div>
+        );
       })
-      .catch((error) => console.error("Error fetching poster:", error));
-  }, [showBackdropImgUrl, apiOptions, baseImgPath]);
+    : "Loading";
+
+  /* -------------------------------------------------------------------------- */
+  /*                                Movie Gallery                               */
+  /* -------------------------------------------------------------------------- */
+  const [backdropImg, setBackdropImg] = useState(null);
+
+  // Retrieving show's backdropImg
+  useEffect(() => {
+    setBackdropImg(baseImgPath + show.backdrop_path);
+  }, [backdropImg]);
 
   return (
     <>
@@ -83,18 +153,38 @@ export default function Modal({
               </span>
             )}
           </div>
+
+          {/* Show's H1 title */}
           <h1 className="title">{show.name || show.title}</h1>
+
+          {/* Show's runtime */}
+          {show.media_type ? (
+            <div className="last-episode">
+              <p>Latest episode: {lastEpisode}</p>
+            </div>
+          ) : (
+            <div className="shows-duration">{durationElement}</div>
+          )}
+
+          {/* Show's Genres */}
+          <div className="genre-tags">{genreTagElements}</div>
+
+          {/* Show's overview */}
           {show.overview && <p className="plot-overview">{show.overview}</p>}
+
+          {/* Cast members */}
+          <div className="cast-list">{castElements}</div>
+
+          {/* Watch Trailer Button */}
+          <button>Watch Trailer</button>
         </div>
-        {(baseImgPath + show.backdrop_path).includes("originalnull") ? (
-          <img className="show_backdrop_img" src={showBackgroundImg} alt="" />
-        ) : (
-          <img
-            className="show_backdrop_img"
-            src={baseImgPath + show.backdrop_path}
-            alt=""
-          />
-        )}
+
+        {/* Background image */}
+        <img
+          className="show_backdrop_img"
+          src={backdropImg ? backdropImg : cannotFindImg}
+          alt=""
+        />
       </div>
     </>
   );

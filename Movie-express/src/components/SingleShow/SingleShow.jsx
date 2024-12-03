@@ -8,10 +8,6 @@ export default function SingleShow({
   imageType,
   handleDisplayModal,
 }) {
-  /* -------------------------------------------------------------------------- */
-  /*                             Show's Details API                             */
-  /* -------------------------------------------------------------------------- */
-
   return (
     <>
       <img
