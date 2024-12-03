@@ -1,3 +1,5 @@
+/* animation of slide in-out */
+
 @keyframes slideIn {
   from {
     transform: translateY(-100%);
@@ -54,15 +56,19 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
   transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
   z-index: 9999;
-  overflow-y: auto;
+  overflow: hidden;
+  cursor: default;
 }
 
-.modal-container-left {
-  width: 80%;
-  min-height: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
+.modal-container.slide-in {
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+}
+/* end of animation part */
+
+/* style */
+.modal-container.slide-in {
+  box-shadow: 0 0 5px 5px rgba(128, 128, 128, 0.2);
 }
 
 .show_backdrop_img {
@@ -73,35 +79,88 @@
   width: 100%;
   height: 100%;
   z-index: -1;
-  filter: brightness(30%);
+  filter: brightness(65%);
 }
 
-.modal-container.slide-in {
-  transform: translate(-50%, -50%) scale(1);
-  opacity: 1;
-  padding: 3rem;
+.modal-container-left {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  height: 100%;
+  width: 60%;
 }
 
-.modal-container.slide-out {
-  opacity: 0;
-  padding: 3rem;
-}
-
-.modal-container-left > .title {
-  font-size: 3.2rem;
+/* tags style */
+.tags {
+  display: flex;
+  gap: 2rem;
   text-transform: uppercase;
+  padding-top: 1rem;
+  font-size: 0.8rem;
   font-weight: bold;
 }
 
-.modal-container .genre-tags > span {
+.tags span {
   padding: 8px;
   border-radius: 4px;
   box-shadow: 0 2px 2px rgba(0, 0, 0);
-  opacity: 0.9;
+  opacity: 0.85;
+}
+
+.year {
+  background-color: darkred;
+}
+
+.media-type {
+  background-color: darkblue;
+}
+
+.language {
+  background-color: darkmagenta;
+}
+
+.rating {
+  background-color: darkgoldenrod;
+}
+
+/* end of tags style */
+
+.title {
+  font-size: 1.8rem;
+  text-transform: uppercase;
+  font-weight: bold;
+  opacity: 0.8;
+}
+
+.shows-duration {
+  opacity: 0.7;
+  margin-top: -2.5rem;
+}
+
+.last-episode {
+  opacity: 0.7;
+  margin-top: -2.5rem;
+}
+
+.genre-tags span {
+  opacity: 0.8;
+  border-radius: 8px;
+  backdrop-filter: blur(10px);
+}
+.plot-overview {
+  opacity: 0.8;
+  /* From https://css.glass */
+  border-radius: 8px;
+  backdrop-filter: blur(20px);
+  border: 5px solid transparent;
+  line-height: 1.4rem;
+  max-width: 60%;
 }
 
 .cast-list {
   display: flex;
+  flex-direction: row;
   gap: 1rem;
 }
 
@@ -112,37 +171,38 @@
   border-radius: 50%;
   object-fit: cover;
   object-position: center;
-  cursor: pointer;
 }
 
-.actor-container .actor-name {
-  min-width: 5rem;
-  max-width: 7rem;
-  background-color: rgb(37, 37, 37);
-  color: white;
+.actor-container {
+  position: relative;
+}
+.actor-name {
   position: absolute;
-  bottom: -3rem;
-  left: 20px;
-  z-index: 1500;
-  padding: 0.5rem;
-  border-radius: 20px;
+  padding: 2px;
+  border-radius: 8px;
+  background-color: rgba(128, 128, 128, 0.4);
+  opacity: 0.85;
+  border: 1px solid gray;
 }
 
 .trailer-button {
   width: 12rem;
   padding: 1rem;
-  border: 1px solid #cd201f;
+  box-shadow: 0 0 2px 2px #cd201f;
+  border: none;
   background-color: transparent;
   color: #fff;
   cursor: pointer;
+  border-radius: 10px;
+  font-weight: bold;
+  position: absolute;
+  bottom: 4rem;
 }
 
 .trailer-button:hover {
   background-color: #cd201f;
   transition: 0.2s all ease-in-out;
+  font-weight: bold;
 }
 
-.modal-container-left .tags span {
-  border: 1px solid white;
-  padding: 0.5rem;
-}
+

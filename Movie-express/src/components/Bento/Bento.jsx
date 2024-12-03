@@ -98,18 +98,23 @@ export default function Bento({
           {artists && artists.length >= 3 ? (
             <>
               <div>
-                <img src={baseUrl + artists[0].profile_path} alt="" />
+                <img src={baseUrl + artists[0].profile_path} alt="artist0" />
+                <h6>name</h6>
               </div>
-              <h5 className="hiden-description">Sakura Kimochi</h5>
+
               <div>
-                <img src={baseUrl + artists[1].profile_path} alt="" />
+                <img src={baseUrl + artists[1].profile_path} alt="artist1" />
+                <h6>name</h6>
               </div>
-              <h5 className="hiden-description small-stars-container">
-                <p>Mia Khalifa</p>
-                <p> Black Nuggar</p>
-              </h5>
+
               <div>
-                <img src={baseUrl + artists[2].profile_path} alt="" />
+                <img src={baseUrl + artists[2].profile_path} alt="artist2" />
+              </div>
+              <div className="hidden-artists">
+                <img src={baseUrl + artists[0].profile_path} alt="artist3" />
+              </div>
+              <div className="hidden-artists">
+                <img src={baseUrl + artists[0].profile_path} alt="artist4" />
               </div>
             </>
           ) : (

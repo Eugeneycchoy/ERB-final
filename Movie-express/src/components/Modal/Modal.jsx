@@ -176,7 +176,7 @@ export default function Modal({
           <div className="cast-list">{castElements}</div>
 
           {/* Watch Trailer Button */}
-          <button>Watch Trailer</button>
+          <button className="trailer-button">Watch Trailer</button>
         </div>
 
         {/* Background image */}

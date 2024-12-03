@@ -41,32 +41,32 @@ export default function Navbar(props) {
         <ul className="nav">
           <li className="nav-item">
             <a className="nav-link active" aria-current="page" href="#">
-              Home
+              Animation
             </a>
           </li>
           <li className="nav-item">
             <a className="nav-link" href="#">
-              TV Shows
+              Action
             </a>
           </li>
           <li className="nav-item">
             <a className="nav-link" href="#">
-              Movies
+              Comedy
             </a>
           </li>
           <li className="nav-item">
             <a className="nav-link" href="#">
-              Channels
+              Fantasy
             </a>
           </li>
           <li className="nav-item">
             <a className="nav-link" href="#">
-              My List
+              Sci-Fi
             </a>
           </li>
           <li className="nav-item">
             <a className="nav-link" href="#">
-              Adult
+              Romance
             </a>
           </li>
         </ul>
