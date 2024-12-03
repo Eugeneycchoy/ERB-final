@@ -101,11 +101,11 @@
   font-weight: bold;
 }
 
-.modal-container .genre-tags > span {
+.tags span {
   padding: 8px;
   border-radius: 4px;
   box-shadow: 0 2px 2px rgba(0, 0, 0);
-  opacity: 0.9;
+  opacity: 0.8;
 }
 
 .year {
@@ -130,10 +130,25 @@
   font-size: 1.8rem;
   text-transform: uppercase;
   font-weight: bold;
-  opacity: 0.7;
-  height: 50%;
+  opacity: 0.8;
 }
 
+.shows-duration {
+  opacity: 0.7;
+  margin-top: -2.5rem;
+}
+
+.last-episode {
+  opacity: 0.7;
+  margin-top: -2.5rem;
+}
+
+.genre-tags span {
+  opacity: 0.8;
+  border-radius: 8px;
+  backdrop-filter: blur(10px);
+  h
+}
 .plot-overview {
   opacity: 0.8;
   /* From https://css.glass */
@@ -143,24 +158,9 @@
   line-height: 1.4rem;
 }
 
-/*
-.modal-container span {
-  border-radius: 20px;
-  padding: 0.6rem;
-  padding-block: 0.3rem;
-  margin-right: 1rem;
-  From https://css.glass
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 16px;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-}*/
-
-/*  missing casting list, 遲D用
 .cast-list {
   display: flex;
+  flex-direction: row;
   gap: 1rem;
 }
 
@@ -171,19 +171,38 @@
   border-radius: 50%;
   object-fit: cover;
   object-position: center;
-} */
+}
 
-/*   missing btn, 遲D用
+.actor-container{
+position: relative;
+
+}
+.actor-name {
+  position: absolute;
+  padding: 2px;
+  border-radius: 8px;
+  background-color: rgba(128, 128, 128, 0.4);
+  opacity: 0.85;
+}
+
 .trailer-button {
   width: 12rem;
   padding: 1rem;
-  border: 1px solid #cd201f;
+  box-shadow: 0 0 2px 2px #cd201f;
+  border: none;
   background-color: transparent;
   color: #fff;
   cursor: pointer;
+  border-radius: 10px;
+  font-weight: bold;
+  position: absolute;
+  bottom: 4rem;
 }
 
- .trailer-button:hover {
+.trailer-button:hover {
   background-color: #cd201f;
   transition: 0.2s all ease-in-out;
-} */
+  font-weight: bold;
+}
+
+
