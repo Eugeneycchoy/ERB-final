@@ -99,12 +99,10 @@ export default function Bento({
             <>
               <div>
                 <img src={baseUrl + artists[0].profile_path} alt="artist0" />
-                <h6>name</h6>
               </div>
 
               <div>
                 <img src={baseUrl + artists[1].profile_path} alt="artist1" />
-                <h6>name</h6>
               </div>
 
               <div>

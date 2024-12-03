@@ -7,6 +7,7 @@ import Bento from "../src/components/Bento/Bento.jsx";
 import Modal from "../src/components/Modal/Modal.jsx";
 import Footer from "../src/components/Footer/Footer.jsx";
 
+
 function App() {
   const movieImgBasePath = "https://image.tmdb.org/t/p/original";
   const youtubeBaseUrl = "https://www.youtube.com/embed/";
@@ -231,6 +232,7 @@ function App() {
           </>
         )}
       </main>
+      <footer></footer>
     </>
   );
 }

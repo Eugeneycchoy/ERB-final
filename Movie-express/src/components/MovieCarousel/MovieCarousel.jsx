@@ -39,7 +39,6 @@ export default function MovieCarousel(props) {
   return (
     <>
       <div className="movie-list-container">
-        <h2 id="trending-tag">{props.tag}</h2>
         <div
           id="carouselExampleIndicators"
           className="carousel slide"
