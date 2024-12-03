@@ -10,6 +10,7 @@ export default function Modal({
   baseImgPath,
   apiOptions,
   isOpen,
+  youtubeTrailerBaseUrl
 }) {
   useEffect(() => {
     console.log(show);
@@ -122,6 +123,39 @@ export default function Modal({
     : "Loading";
 
   /* -------------------------------------------------------------------------- */
+  /*                     Watch Trailer Button API                               */
+  /* -------------------------------------------------------------------------- */
+  const [trailerKey, setTrailerKey] = useState(null);
+  const movieTrailerUrl = `https://api.themoviedb.org/3/movie/${show.id}/videos?language=en-US`;
+  const tvSeriesTrailerUrl = `https://api.themoviedb.org/3/tv/${show.id}/videos?language=en-US`;
+
+
+  useEffect(() => {
+    fetch(show.media_type?tvSeriesTrailerUrl : movieTrailerUrl, apiOptions)
+      .then((res) => res.json())
+      .then((resJSON) => {
+        if (resJSON.results && resJSON.results.length > 0) {
+          for (let result of resJSON.results) {
+            if (result.type.includes("Trailer" || "trailer")) {
+              setTrailerKey(result.key);
+            } else {
+              setTrailerKey(resJSON.results[0].key);
+            }
+          }
+        } else {
+          console.log("No trailer found");
+        }
+      })
+  }, [show.id, apiOptions])
+
+function handleWatchTrailer() {
+  window.open(youtubeTrailerBaseUrl + trailerKey, "_blank");
+
+}
+
+
+
+  /* -------------------------------------------------------------------------- */
   /*                                Movie Gallery                               */
   /* -------------------------------------------------------------------------- */
   const [backdropImg, setBackdropImg] = useState(null);
@@ -176,7 +210,7 @@ export default function Modal({
           <div className="cast-list">{castElements}</div>
 
           {/* Watch Trailer Button */}
-          <button className="trailer-button">Watch Trailer</button>
+          <button onClick={handleWatchTrailer} className="trailer-button">Watch Trailer</button>
         </div>
 
         {/* Background image */}

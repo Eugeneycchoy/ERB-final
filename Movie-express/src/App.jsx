@@ -9,6 +9,7 @@ import Modal from "../src/components/Modal/Modal.jsx";
 function App() {
   const movieImgBasePath = "https://image.tmdb.org/t/p/original";
   const youtubeBaseUrl = "https://www.youtube.com/embed/";
+  const youtubeTrailerBaseUrl = "https://www.youtube.com/watch?v="
   const apiKey = "7e2c4aa4c12d6fa20f4fe120dba56b78";
 
   async function getMovieData(url, options) {
@@ -176,6 +177,7 @@ function App() {
           show={show}
           apiOptions={options}
           isOpen={showModal}
+          youtubeTrailerBaseUrl={youtubeTrailerBaseUrl}
         />
       )}
       <main>
