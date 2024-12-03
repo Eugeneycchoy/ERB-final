@@ -65,7 +65,7 @@
   padding: 1.2rem;
   border-radius: 25px;
   font-size: 14px;
-
+  cursor: default;
   /* From https://css.glass */
   background: rgba(255, 255, 255, 0.14);
   border-radius: 16px;

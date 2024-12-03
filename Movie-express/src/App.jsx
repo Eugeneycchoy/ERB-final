@@ -6,10 +6,11 @@ import MovieList from "../src/components/MovieList/MovieList.jsx";
 import Bento from "../src/components/Bento/Bento.jsx";
 import Modal from "../src/components/Modal/Modal.jsx";
 
+
 function App() {
   const movieImgBasePath = "https://image.tmdb.org/t/p/original";
   const youtubeBaseUrl = "https://www.youtube.com/embed/";
-  const youtubeTrailerBaseUrl = "https://www.youtube.com/watch?v="
+  const youtubeTrailerBaseUrl = "https://www.youtube.com/watch?v=";
   const apiKey = "7e2c4aa4c12d6fa20f4fe120dba56b78";
 
   async function getMovieData(url, options) {
@@ -85,7 +86,7 @@ function App() {
       console.error();
     }
   }
-  
+
   function handleLogoClick() {
     // reset search results
     setSearchResults([]);
@@ -123,14 +124,15 @@ function App() {
 
   const [trailerVideo, setTrailerVideo] = useState(null);
   const [randomTrailerMovie, setRandomTrailerMovie] = useState("1100782");
-  
+
   useEffect(() => {
     if (popularMovies && popularMovies.length > 0) {
-      const randomMovie = popularMovies[Math.floor(Math.random() * popularMovies.length)];
+      const randomMovie =
+        popularMovies[Math.floor(Math.random() * popularMovies.length)];
       setRandomTrailerMovie(randomMovie.id);
     }
   }, [popularMovies]);
-  
+
   useEffect(() => {
     if (randomTrailerMovie) {
       const videoTrailerUrl = `https://api.themoviedb.org/3/movie/${randomTrailerMovie}/videos?language=en-US`;
@@ -205,6 +207,7 @@ function App() {
           </>
         )}
       </main>
+      <footer></footer>
     </>
   );
 }
