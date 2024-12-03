@@ -19,6 +19,7 @@
 
 .movie-content {
   display: flex;
+  cursor: default;
 }
 
 .movie-content-text {
