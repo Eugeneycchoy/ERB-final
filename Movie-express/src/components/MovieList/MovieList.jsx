@@ -2,9 +2,12 @@ import "../MovieList/MovieList.css";
 import cannotFindImg from "../../assets/thistv.png";
 import SingleShow from "../SingleShow/SingleShow";
 
-export default function MovieList({shows, baseImgPath, handleDisplayModal}) {
+export default function MovieList({ shows, baseImgPath, handleDisplayModal }) {
+  // Sort shows by popularity in descending order
+  const sortedShows = [...shows].sort((a, b) => b.popularity - a.popularity);
+
   // JSX template
-  const showElements = shows.map((show) => {
+  const showElements = sortedShows.map((show) => {
     return (
       <div key={show.id} className="movie-container">
         <div className="movie-container-dark-overlay"></div>
@@ -16,7 +19,6 @@ export default function MovieList({shows, baseImgPath, handleDisplayModal}) {
           imageType="poster"
           handleDisplayModal={handleDisplayModal}
         />
-        
       </div>
     );
   });

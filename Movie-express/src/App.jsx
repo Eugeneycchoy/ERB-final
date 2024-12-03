@@ -166,10 +166,34 @@ function App() {
   /*                               TV Series's API                              */
   /* -------------------------------------------------------------------------- */
 
+  function handleAnimationClick() {
+ 
+    const animationSearchUrl = 'https://api.themoviedb.org/3/discover/movie?include_adult=true&include_video=false&language=en-US&page=1&sort_by=popularity.desc';
+
+    fetch(animationSearchUrl, options)
+      .then((res) => res.json())
+      .then((resJSON) => {
+        const result = []
+        for(let item of resJSON.results) {
+          if (item.genre_ids.includes(16)){
+            result.push(item)
+          }
+          setSearchResults(result);
+        }
+      })
+      .catch((error) => console.error(error));
+  }
+
   return (
     <>
       {/* Adding an onSearch Listener to the Navbar*/}
-      <Navbar onSearch={handleSearch} onLogoClick={handleLogoClick} />
+      <Navbar 
+          onSearch={handleSearch} 
+          onLogoClick={handleLogoClick} 
+          onAnimationClick={handleAnimationClick} 
+          onActionClick={""} 
+          onComedyClick={""}
+      />
       {showModal && (
         <Modal
           baseImgPath={movieImgBasePath}
@@ -181,7 +205,7 @@ function App() {
         />
       )}
       <main>
-        {searchResults.length > 0 ? (
+        {searchResults && searchResults.length > 0 ? (
           <MovieList
             shows={searchResults}
             baseImgPath={movieImgBasePath}

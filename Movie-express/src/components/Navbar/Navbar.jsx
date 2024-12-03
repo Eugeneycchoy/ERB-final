@@ -16,6 +16,11 @@ export default function Navbar(props) {
     props.onSearch(query);
   };
 
+  function handleSortAnimations(e) {
+    e.preventDefault();
+    props.onAnimationClick();
+  }
+
   return (
     <>
       <div className="navbar-container">
@@ -30,9 +35,9 @@ export default function Navbar(props) {
             />
             <button onClick={handleSearch}>
               <img src={searchbtn} alt="Search" />
-            </button>{" "}
+            </button>
           </div>
-          {/* call handleSearch when the serach button is clicked*/}
+          {/* call handleSearch when the search button is clicked */}
           <div className="nav-mid"></div>
           <div id="nav-logo" onClick={props.onLogoClick}>
             This<span id="movie-logo">MOVIE</span>
@@ -40,7 +45,7 @@ export default function Navbar(props) {
         </nav>
         <ul className="nav">
           <li className="nav-item">
-            <a className="nav-link active" aria-current="page" href="#">
+            <a onClick={handleSortAnimations} className="nav-link active" aria-current="page" href="#">
               Animation
             </a>
           </li>

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import "../Modal/Modal.css";
 import sg from "../../assets/sg.jpeg";
 import SingleActor from "../SingleActor/SingleActor";
-import cannotFindImg from "../../../public/cannot-find-movie-poster.jpg";
+import cannotFindImg from "../../assets/thistv.png";
 
 export default function Modal({
   handleCloseModal,
@@ -216,7 +216,9 @@ function handleWatchTrailer() {
         {/* Background image */}
         <img
           className="show_backdrop_img"
-          src={backdropImg ? backdropImg : cannotFindImg}
+          src={ 
+            backdropImg ? !backdropImg.includes("null") ? backdropImg : cannotFindImg : "Loading"
+            }
           alt=""
         />
       </div>
