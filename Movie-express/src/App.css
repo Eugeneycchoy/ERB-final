@@ -44,11 +44,11 @@ main {
       border-radius: 0 !important;
     }
 
-    div.artrists-container > div:nth-child(3) > img {
+    div.artists-container > div:nth-child(3) > img {
       display: none;
     }
 
-    div.artrists-container > div:nth-child(4) > img {
+    div.artists-container > div:nth-child(4) > img {
       display: none;
     }
 

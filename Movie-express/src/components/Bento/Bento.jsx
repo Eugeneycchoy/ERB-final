@@ -93,7 +93,7 @@ export default function Bento({
     <>
       {/* Bento */}
       <div className="movie-bento-container">
-        <div className="artrists-container">
+        <div className="artists-container">
           <h2>TOP STARS OF THE WEEK</h2>
           {artists && artists.length >= 3 ? (
             <>
