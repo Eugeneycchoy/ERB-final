@@ -31,12 +31,12 @@ export default function Navbar(props) {
               type="text"
               value={query} /* Give this element a variable name */
               onChange={handleInputChange} /* call handleInputChange */
-              placeholder="Search Movies"
               onKeyDown={(e) => {
                 if (e.key === "Enter") {
                   handleSearch();
                 }
               }}
+              placeholder="Search Movies/People"
             />
             <button onClick={handleSearch}>
               <img src={searchbtn} alt="Search" />

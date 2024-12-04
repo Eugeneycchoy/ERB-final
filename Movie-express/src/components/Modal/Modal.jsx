@@ -3,6 +3,7 @@ import "../Modal/Modal.css";
 import sg from "../../assets/sg.jpeg";
 import SingleActor from "../SingleActor/SingleActor";
 import cannotFindImg from "../../assets/thismovie.png";
+import axios from "axios";
 
 export default function Modal({
   handleCloseModal,
@@ -126,8 +127,8 @@ export default function Modal({
   /*                     Watch Trailer Button API                               */
   /* -------------------------------------------------------------------------- */
   const [trailerKey, setTrailerKey] = useState(null);
-  const movieTrailerUrl = `https://api.themoviedb.org/3/movie/${show.id}/videos?language=en-US`;
-  const tvSeriesTrailerUrl = `https://api.themoviedb.org/3/tv/${show.id}/videos?language=en-US`;
+  const movieTrailerUrl = `https://api.themoviedb.org/3/movie/${show.id}/videos?language=en-US&api_key=7e2c4aa4c12d6fa20f4fe120dba56b78`;
+  const tvSeriesTrailerUrl = `https://api.themoviedb.org/3/tv/${show.id}/videos?language=en-US&api_key=7e2c4aa4c12d6fa20f4fe120dba56b78`;
 
   useEffect(() => {
     fetch(show.media_type ? tvSeriesTrailerUrl : movieTrailerUrl, apiOptions)
