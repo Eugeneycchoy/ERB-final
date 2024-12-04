@@ -10,7 +10,6 @@ export default function SingleShow({
   handleCloseModal,
   actor,
   isOpen,
-  handleClose,
 }) {
   const handleClick = () => {
     if (actor && isOpen) {

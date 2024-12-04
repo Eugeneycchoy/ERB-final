@@ -15,7 +15,6 @@
 .actor-modal-container-left {
   display: flex;
   flex-direction: column;
-  height: 20%;
   margin-left: 2rem;
   margin-top: 2rem;
   gap: 2.5rem;
@@ -45,7 +44,7 @@
   border-radius: 20px;
 }
 
-@media (max-width: 1500px) {
+@media (max-width: 1000px) {
   #root
     > div.modal-container.slide-in.actor
     > div.actor-modal-container-right

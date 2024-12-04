@@ -56,10 +56,10 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
   transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
   z-index: 9999;
-  overflow: auto; /* Ensures scrolling when content overflows */
+  overflow-y: auto; /* Ensures scrolling when content overflows */
   cursor: default;
-  min-width: 500px;
-  min-height: 780px;
+  /* min-width: 500px;
+  min-height: 780px; */
 }
 
 .modal-container.slide-in {
@@ -158,7 +158,7 @@
   opacity: 0.85;
   line-height: 1rem;
   max-width: 100%;
-  height: 30%;
+  height: auto;
 }
 
 .cast-list {
@@ -191,25 +191,40 @@
   z-index: 1;
 }
 
-.trailer-button {
+.show-modal-controls {
+  display: flex;
+  position: absolute;
+  bottom: 3rem;
+  left: 5rem;
+  gap: 1rem;
+}
+
+.show-modal-controls button {
   width: 12rem;
   padding: 1rem;
-  box-shadow: 0 0 2px 2px #cd201f;
   border: none;
-  background-color: rgba(128, 128, 128, 0.25);
+  background-color: #cd201f;
   color: #fff;
   cursor: pointer;
   border-radius: 10px;
   font-weight: bold;
-  position: absolute;
-  bottom: 2rem;
 }
 
-.trailer-button:hover {
+.show-modal-controls button:nth-child(1):hover {
   background-color: #cd201f;
+  box-shadow: 0 0 2px 2px #cd201f;
   transition: 0.3s all ease-in-out;
-  font-weight: bold;
-  font-size: 1.1rem;
+}
+
+.show-modal-controls button:nth-child(2) {
+  background-color: transparent;
+  box-shadow: 0 0 2px 2px #cd201f;
+}
+
+.show-modal-controls button:nth-child(2):hover {
+  background-color: #cd201f;
+
+  transition: 0.3s all ease-in-out;
 }
 
 .actor {
@@ -228,8 +243,13 @@
   justify-content: center;
 }
 
+.actor-modal-movie {
+  width: 15rem;
+  height: 30rem;
+}
+
 .actor-modal-movie img {
-  width: 20rem;
+  width: 15rem;
 }
 
 #root > div.modal-container.slide-in.actor > div.actor-modal-container-right,

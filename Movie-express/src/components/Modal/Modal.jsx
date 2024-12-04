@@ -206,7 +206,6 @@ export default function Modal({
               handleCloseModal={handleCloseModal}
               actor={actor}
               isOpen={isOpen}
-              handleClose={handleClose}
             />
           </div>
         </>
@@ -265,9 +264,12 @@ export default function Modal({
             <div className="cast-list">{castElements}</div>
 
             {/* Watch Trailer Button */}
-            <button onClick={handleWatchTrailer} className="trailer-button">
-              Watch Trailer
-            </button>
+            <div className="show-modal-controls">
+              <button onClick={handleWatchTrailer} className="trailer-button">
+                Watch Trailer
+              </button>
+              <button>Add to Watchlist</button>
+            </div>
           </div>
 
           {/* Background image */}

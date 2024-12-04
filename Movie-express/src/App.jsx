@@ -197,22 +197,36 @@ function App() {
   /*                               TV Series's API                              */
   /* -------------------------------------------------------------------------- */
 
-  function handleAnimationClick() {
-    const animationSearchUrl =
-      "https://api.themoviedb.org/3/discover/movie?include_adult=true&include_video=false&language=en-US&page=1&sort_by=popularity.desc";
+  async function handleAnimationClick() {
+    const baseUrl = "https://api.themoviedb.org/3/discover/movie";
 
-    fetch(animationSearchUrl, options)
-      .then((res) => res.json())
-      .then((resJSON) => {
-        const result = [];
-        for (let item of resJSON.results) {
-          if (item.genre_ids.includes(16)) {
-            result.push(item);
-          }
-          setSearchResults(result);
-        }
-      })
-      .catch((error) => console.error(error));
+    let page = 1;
+    let totalPages = 1;
+    const animationResults = [];
+
+    async function fetchAnimationMovieData(url, options) {
+      const response = await axios.get(url, options);
+      return response.data;
+    }
+
+    try {
+      while (page <= 501) {
+        const url = `${baseUrl}?include_adult=true&include_video=false&language=en-US&page=${page}&sort_by=popularity.desc`;
+        console.log(`Fetching data from page ${page}`);
+        const movieData = await fetchAnimationMovieData(url, options);
+        totalPages = movieData.total_pages;
+        console.log(`Total pages: ${totalPages}`);
+        const filteredResults = movieData.results.filter((result) =>
+          result.genre_ids.includes(16)
+        );
+        animationResults.push(...filteredResults);
+        page++;
+      }
+      console.log("Final animation results:", animationResults);
+      console.log("Handling animation click completed");
+    } catch (e) {
+      console.error("Error fetching data:", e);
+    }
   }
 
   return (
