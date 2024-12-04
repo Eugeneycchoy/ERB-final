@@ -59,6 +59,7 @@
   overflow: auto; /* Ensures scrolling when content overflows */
   cursor: default;
   min-width: 580px;
+  min-height: 780px;
 }
 
 .modal-container.slide-in {
@@ -147,9 +148,10 @@
 .genre-tags span {
   border-radius: 4px;
   background-color: rgba(128, 128, 128, 0.4);
-  padding: 5px;
+  padding: 5px 2px 5px 2px;
   backdrop-filter: blur(10px);
   gap: 1rem;
+  text-align: center;
 }
 
 .plot-overview {
