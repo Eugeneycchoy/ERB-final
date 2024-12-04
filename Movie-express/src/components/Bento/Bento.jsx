@@ -3,13 +3,15 @@ import "../SingleTrailer/SingleTrailer.jsx";
 import SingleShow from "../SingleShow/SingleShow.jsx";
 import { useEffect, useState } from "react";
 import SingleTrailer from "../SingleTrailer/SingleTrailer.jsx";
+import SingleActor from "../SingleActor/SingleActor.jsx";
 
 export default function Bento({
   tvSeries,
   movies,
   baseUrl,
   videoURL,
-  handleDisplayModal,
+  handleDisplayShowInfoModal,
+  handleDisplayActorInfoModal,
   artists,
 }) {
   // Render out different trending movies and tv shows everytime the page reloads
@@ -51,11 +53,18 @@ export default function Bento({
   /*                                JSX TEMPLATE                                */
   /* -------------------------------------------------------------------------- */
   // Artists
+
   const artistElements = artists.slice(0, 5).map((artist) => {
     return (
-      <div key={artist.id}>
-        <img src={baseUrl + artist.profile_path} alt="" />
-      </div>
+      // <div key={artist.id}>
+      //   <img src={baseUrl + artist.profile_path} alt="" />
+      // </div>
+      <SingleActor
+        key={artist.id}
+        person={artist}
+        baseImgPath={baseUrl}
+        handleDisplayActorInfoModal={handleDisplayActorInfoModal}
+      />
     );
   });
 
@@ -70,7 +79,7 @@ export default function Bento({
         <SingleShow
           show={tvShow}
           baseUrl={baseUrl}
-          handleDisplayModal={handleDisplayModal}
+          handleDisplayShowInfoModal={handleDisplayShowInfoModal}
         />
       </div>
     );
@@ -87,7 +96,7 @@ export default function Bento({
         <SingleShow
           show={movie}
           baseUrl={baseUrl}
-          handleDisplayModal={handleDisplayModal}
+          handleDisplayShowInfoModal={handleDisplayShowInfoModal}
         />
       </div>
     );

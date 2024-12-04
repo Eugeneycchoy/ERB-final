@@ -6,7 +6,7 @@ export default function SingleShow({
   show,
   baseUrl,
   imageType,
-  handleDisplayModal,
+  handleDisplayShowInfoModal,
 }) {
   return (
     <>
@@ -23,7 +23,7 @@ export default function SingleShow({
             : baseUrl + show.poster_path
         }
         alt=""
-        onClick={() => handleDisplayModal(show)}
+        onClick={() => handleDisplayShowInfoModal(show)}
       />
     </>
   );

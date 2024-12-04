@@ -8,14 +8,20 @@ import axios from "axios";
 export default function Modal({
   handleCloseModal,
   show,
+  actor,
   baseImgPath,
   apiOptions,
   isOpen,
   youtubeTrailerBaseUrl,
+  modalType,
 }) {
-  useEffect(() => {
-    console.log(show);
-  }, [show]);
+  // useEffect(() => {
+  //   console.log(show);
+  // }, [show]);
+
+  // useEffect(() => {
+  //   console.log(actor);
+  // }, [actor]);
 
   const [animate, setAnimate] = useState(false);
 
@@ -42,18 +48,26 @@ export default function Modal({
   const [details, setDetails] = useState([]);
 
   useEffect(() => {
-    let detailsUrl;
-    if (show.media_type === "tv") {
-      detailsUrl = `https://api.themoviedb.org/3/tv/${show.id}?language=en-US`;
+    if (show) {
+      let detailsUrl;
+      if (show.media_type === "tv") {
+        detailsUrl = `https://api.themoviedb.org/3/tv/${show.id}?language=en-US`;
+      } else {
+        detailsUrl = `https://api.themoviedb.org/3/movie/${show.id}?language=en-US`;
+      }
+      fetch(detailsUrl, apiOptions)
+        .then((res) => res.json())
+        .then((resJSON) => setDetails(resJSON))
+        .catch((error) => console.error("Error fetching details:", error));
     } else {
-      detailsUrl = `https://api.themoviedb.org/3/movie/${show.id}?language=en-US`;
+      let detailsUrl =
+        "https://api.themoviedb.org/3/search/person?query=henry%20cavill&include_adult=false&language=en-US&page=1"; // actor url
+      fetch(detailsUrl, apiOptions)
+        .then((res) => res.json())
+        .then((resJSON) => setDetails(resJSON))
+        .catch((error) => console.error("Error fetching details:", error));
     }
-
-    fetch(detailsUrl, apiOptions)
-      .then((res) => res.json())
-      .then((resJSON) => setDetails(resJSON))
-      .catch((error) => console.error("Error fetching details:", error));
-  }, [show.id, show.media_type, apiOptions]);
+  }, [show, actor, apiOptions]);
 
   useEffect(() => {
     console.log(details);
@@ -78,20 +92,26 @@ export default function Modal({
     : null;
 
   /* -------------------------------------------------------------------------- */
+  /*                             Actor's Details API                            */
+  /* -------------------------------------------------------------------------- */
+
+  /* -------------------------------------------------------------------------- */
   /*                               Show's Cast API                              */
   /* -------------------------------------------------------------------------- */
-  const [showCast, setShowCast] = useState([]); // showCast.cast for the actors
-
-  const showCastUrl = show.media_type
-    ? `https://api.themoviedb.org/3/tv/${show.id}/credits?language=en-US`
-    : `https://api.themoviedb.org/3/movie/${show.id}/credits?language=en-US`;
+  const [showCast, setShowCast] = useState([]);
 
   useEffect(() => {
-    fetch(showCastUrl, apiOptions)
-      .then((res) => res.json())
-      .then((resJSON) => setShowCast(resJSON))
-      .catch((error) => console.error("Error fetching details:", error));
-  }, [show.id, show.media_type, apiOptions]);
+    if (show) {
+      const showCastUrl =
+        show.media_type === "tv"
+          ? `https://api.themoviedb.org/3/tv/${show.id}/credits?language=en-US`
+          : `https://api.themoviedb.org/3/movie/${show.id}/credits?language=en-US`;
+      fetch(showCastUrl, apiOptions)
+        .then((res) => res.json())
+        .then((resJSON) => setShowCast(resJSON))
+        .catch((error) => console.error("Error fetching details:", error));
+    }
+  }, [show, apiOptions]);
 
   useEffect(() => {
     console.log(showCast);
@@ -127,26 +147,28 @@ export default function Modal({
   /*                     Watch Trailer Button API                               */
   /* -------------------------------------------------------------------------- */
   const [trailerKey, setTrailerKey] = useState(null);
-  const movieTrailerUrl = `https://api.themoviedb.org/3/movie/${show.id}/videos?language=en-US&api_key=7e2c4aa4c12d6fa20f4fe120dba56b78`;
-  const tvSeriesTrailerUrl = `https://api.themoviedb.org/3/tv/${show.id}/videos?language=en-US&api_key=7e2c4aa4c12d6fa20f4fe120dba56b78`;
 
   useEffect(() => {
-    fetch(show.media_type ? tvSeriesTrailerUrl : movieTrailerUrl, apiOptions)
-      .then((res) => res.json())
-      .then((resJSON) => {
-        if (resJSON.results && resJSON.results.length > 0) {
-          for (let result of resJSON.results) {
-            if (result.type.includes("Trailer" || "trailer")) {
-              setTrailerKey(result.key);
-            } else {
-              setTrailerKey(resJSON.results[0].key);
-            }
+    if (show) {
+      const movieTrailerUrl = `https://api.themoviedb.org/3/movie/${show.id}/videos?language=en-US&api_key=7e2c4aa4c12d6fa20f4fe120dba56b78`;
+      const tvSeriesTrailerUrl = `https://api.themoviedb.org/3/tv/${show.id}/videos?language=en-US&api_key=7e2c4aa4c12d6fa20f4fe120dba56b78`;
+      const trailerUrl =
+        show.media_type === "tv" ? tvSeriesTrailerUrl : movieTrailerUrl;
+      fetch(trailerUrl, apiOptions)
+        .then((res) => res.json())
+        .then((resJSON) => {
+          if (resJSON.results && resJSON.results.length > 0) {
+            const trailer = resJSON.results.find((result) =>
+              result.type.toLowerCase().includes("trailer")
+            );
+            setTrailerKey(trailer ? trailer.key : resJSON.results[0].key);
+          } else {
+            console.log("No trailer found");
           }
-        } else {
-          console.log("No trailer found");
-        }
-      });
-  }, [show.id, apiOptions]);
+        })
+        .catch((error) => console.error("Error fetching trailer:", error));
+    }
+  }, [show, apiOptions]);
 
   function handleWatchTrailer() {
     window.open(youtubeTrailerBaseUrl + trailerKey, "_blank");
@@ -159,7 +181,9 @@ export default function Modal({
 
   // Retrieving show's backdropImg
   useEffect(() => {
-    setBackdropImg(baseImgPath + show.backdrop_path);
+    if (show) {
+      setBackdropImg(baseImgPath + show.backdrop_path);
+    }
   }, [backdropImg]);
 
   return (
@@ -168,63 +192,77 @@ export default function Modal({
         className={`modal-background-overlay ${
           animate ? "fade-in" : "fade-out"
         }`}
-        onClick={handleClose}
+        onClick={() => {
+          handleClose();
+          handleCloseModal;
+        }}
       ></div>
-      <div className={`modal-container ${animate ? "slide-in" : "slide-out"}`}>
-        <div className="modal-container-left">
-          <div className="tags">
-            <span className="year">
-              {(show.first_air_date || show.release_date).slice(0, 4)}
-            </span>
-            <span className="media-type">{show.media_type || "movie"}</span>
-            <span className="language">{show.original_language}</span>
-            {show.vote_average > 0 && (
-              <span className="rating">
-                {Math.round(show.vote_average * 10) / 10}
+      {modalType === "showInfo" ? (
+        <div
+          className={`modal-container ${animate ? "slide-in" : "slide-out"}`}
+        >
+          <div className="modal-container-left">
+            <div className="tags">
+              <span className="year">
+                {(show.first_air_date || show.release_date).slice(0, 4)}
               </span>
+              <span className="media-type">{show.media_type || "movie"}</span>
+              <span className="language">{show.original_language}</span>
+              {show.vote_average > 0 && (
+                <span className="rating">
+                  {Math.round(show.vote_average * 10) / 10}
+                </span>
+              )}
+            </div>
+
+            {/* Show's H1 title */}
+            <h1 className="title">{show.name || show.title}</h1>
+
+            {/* Show's runtime */}
+            {show.media_type ? (
+              <div className="last-episode">
+                <p>Latest episode: {lastEpisode}</p>
+              </div>
+            ) : (
+              <div className="shows-duration">{durationElement}</div>
             )}
+
+            {/* Show's Genres */}
+            <div className="genre-tags">{genreTagElements}</div>
+
+            {/* Show's overview */}
+            {show.overview && <p className="plot-overview">{show.overview}</p>}
+
+            {/* Cast members */}
+            <div className="cast-list">{castElements}</div>
+
+            {/* Watch Trailer Button */}
+            <button onClick={handleWatchTrailer} className="trailer-button">
+              Watch Trailer
+            </button>
           </div>
 
-          {/* Show's H1 title */}
-          <h1 className="title">{show.name || show.title}</h1>
-
-          {/* Show's runtime */}
-          {show.media_type ? (
-            <div className="last-episode">
-              <p>Latest episode: {lastEpisode}</p>
-            </div>
-          ) : (
-            <div className="shows-duration">{durationElement}</div>
-          )}
-
-          {/* Show's Genres */}
-          <div className="genre-tags">{genreTagElements}</div>
-
-          {/* Show's overview */}
-          {show.overview && <p className="plot-overview">{show.overview}</p>}
-
-          {/* Cast members */}
-          <div className="cast-list">{castElements}</div>
-
-          {/* Watch Trailer Button */}
-          <button onClick={handleWatchTrailer} className="trailer-button">
-            Watch Trailer
-          </button>
+          {/* Background image */}
+          <img
+            className="show_backdrop_img"
+            src={
+              backdropImg
+                ? !backdropImg.includes("null")
+                  ? backdropImg
+                  : cannotFindImg
+                : "Loading"
+            }
+            alt=""
+          />
         </div>
-
-        {/* Background image */}
-        <img
-          className="show_backdrop_img"
-          src={
-            backdropImg
-              ? !backdropImg.includes("null")
-                ? backdropImg
-                : cannotFindImg
-              : "Loading"
-          }
-          alt=""
-        />
-      </div>
+      ) : (
+        // Actor's Modal
+        <div
+          className={`modal-container ${animate ? "slide-in" : "slide-out"}`}
+        >
+          <h1>Actor's Info</h1>
+        </div>
+      )}
     </>
   );
 }

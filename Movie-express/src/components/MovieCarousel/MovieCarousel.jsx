@@ -19,7 +19,7 @@ export default function MovieCarousel(props) {
             show={movie}
             baseUrl={basicImgPath}
             imageType="backdrop"
-            handleDisplayModal={props.handleDisplayModal}
+            handleDisplayShowInfoModal={props.handleDisplayShowInfoModal}
           />
           {/* <img
             className="d-block"

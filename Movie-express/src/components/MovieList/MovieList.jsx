@@ -2,7 +2,11 @@ import "../MovieList/MovieList.css";
 import cannotFindImg from "../../assets/thismovie.png";
 import SingleShow from "../SingleShow/SingleShow";
 
-export default function MovieList({ shows, baseImgPath, handleDisplayModal }) {
+export default function MovieList({
+  shows,
+  baseImgPath,
+  handleDisplayShowInfoModal,
+}) {
   // Sort shows by popularity in descending order
   const sortedShows = [...shows].sort((a, b) => b.popularity - a.popularity);
 
@@ -17,7 +21,7 @@ export default function MovieList({ shows, baseImgPath, handleDisplayModal }) {
           show={show}
           baseUrl={baseImgPath}
           imageType="poster"
-          handleDisplayModal={handleDisplayModal}
+          handleDisplayShowInfoModal={handleDisplayShowInfoModal}
         />
       </div>
     );

@@ -25,14 +25,25 @@ function App() {
   /* -------------------------------------------------------------------------- */
   const [showModal, setShowModal] = useState(false);
   const [show, setShow] = useState(null);
+  const [actor, setActor] = useState(null);
 
-  function displayModal(show) {
+  function displayShowInfoModal(show) {
     setShow(show);
     setShowModal(true);
   }
 
+  function displayActorInfoModal(actor) {
+    setActor(actor);
+    setShowModal(true);
+  }
+  useEffect(() => {
+    console.log(actor);
+  }, [actor]);
+
   function closeModal() {
     setShowModal(false);
+    setShow(null);
+    setActor(null);
   }
 
   /* -------------------------------------------------------------------------- */
@@ -214,7 +225,45 @@ function App() {
         onActionClick={""}
         onComedyClick={""}
       />
-      {showModal && (
+
+      {showModal && show && (
+        <Modal
+          baseImgPath={movieImgBasePath}
+          handleCloseModal={closeModal}
+          show={show}
+          actor={actor}
+          apiOptions={options}
+          isOpen={showModal}
+          youtubeTrailerBaseUrl={youtubeTrailerBaseUrl}
+          modalType="showInfo"
+        />
+      )}
+
+      {showModal && actor && (
+        <Modal
+          baseImgPath={movieImgBasePath}
+          handleCloseModal={closeModal}
+          actor={actor}
+          show={show}
+          apiOptions={options}
+          isOpen={showModal}
+          youtubeTrailerBaseUrl={youtubeTrailerBaseUrl}
+          modalType="actorInfo"
+        />
+      )}
+
+      {/* {showModal && actor && (
+        <Modal
+          baseImgPath={movieImgBasePath}
+          handleCloseModal={closeModal}
+          actor={actor}
+          apiOptions={options}
+          isOpen={showModal}
+          youtubeTrailerBaseUrl={youtubeTrailerBaseUrl}
+          modalType="actorInfo"
+        />
+      )} */}
+      {/* {showModal && (
         <Modal
           baseImgPath={movieImgBasePath}
           handleCloseModal={closeModal}
@@ -222,20 +271,21 @@ function App() {
           apiOptions={options}
           isOpen={showModal}
           youtubeTrailerBaseUrl={youtubeTrailerBaseUrl}
+          modalType="showInfo"
         />
-      )}
+      )} */}
       <main>
         {searchResults && searchResults.length > 0 ? (
           <MovieList
             shows={searchResults}
             baseImgPath={movieImgBasePath}
-            handleDisplayModal={displayModal}
+            handleDisplayShowInfoModal={displayShowInfoModal}
           />
         ) : (
           <>
             <MovieCarousel
               movies={popularMovies}
-              handleDisplayModal={displayModal}
+              handleDisplayShowInfoModal={displayShowInfoModal}
               tag="🔥 Now Trending"
             />
             <Bento
@@ -244,7 +294,8 @@ function App() {
               videoURL={trailerVideo}
               tvSeries={tvSeries}
               movies={popularMovies}
-              handleDisplayModal={displayModal}
+              handleDisplayShowInfoModal={displayShowInfoModal}
+              handleDisplayActorInfoModal={displayActorInfoModal}
             />
           </>
         )}

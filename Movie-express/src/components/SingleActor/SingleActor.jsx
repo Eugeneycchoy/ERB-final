@@ -1,7 +1,11 @@
 import { useEffect } from "react";
 import "../SingleActor/SingleActor.css";
 
-export default function SingleActor({ person, baseImgPath }) {
+export default function SingleActor({
+  person,
+  baseImgPath,
+  handleDisplayActorInfoModal,
+}) {
   useEffect(() => {
     const actorImgElements = document.querySelectorAll(".actor-img");
     const actorNamePlates = document.querySelectorAll(".actor-name");
@@ -31,7 +35,10 @@ export default function SingleActor({ person, baseImgPath }) {
   }, []);
 
   return (
-    <div className="actor-container">
+    <div
+      className="actor-container"
+      onClick={() => handleDisplayActorInfoModal(person)}
+    >
       <img
         className="actor-img"
         src={baseImgPath + person.profile_path}
