@@ -102,28 +102,33 @@ function App() {
   /* -------------------------------------------------------------------------- */
   /*                                 Artist API                                 */
   /* -------------------------------------------------------------------------- */
-  const artistUrl =
+  const topArtistUrl =
     "https://api.themoviedb.org/3/person/popular?language=en-US&page=1";
 
+  // topArtists: Array<Artist>
   const [topArtists, setTopArtists] = useState([]);
 
-  useEffect(() => {
-    async function fetchArtistData() {
-      const data = await getMovieData(artistUrl, options);
-      const artistList = [];
-      for (let i = 0; i < 3; i++) {
-        artistList.push(data.results[i]);
+  useEffect(
+    () => {
+      // Fetch and Assign
+      async function fetchingTopArtistsData() {
+        const topArtistsResponse = await axios.get(topArtistUrl);
+        setTopArtists(topArtistsResponse.data.results);
       }
-      console.log(artistList);
-      setTopArtists(artistList);
-    }
-    try {
-      fetchArtistData();
-    } catch {
-      console.error();
-    }
-  }, []);
 
+      try {
+        fetchingTopArtistsData();
+      } catch (e) {
+        // Something goes wrong
+        console.error(e);
+      }
+    },
+    [] /* Run Once per page reload */
+  );
+
+  useEffect(() => {
+    console.log(topArtists);
+  }, [topArtists]);
   /* -------------------------------------------------------------------------- */
   /*                               New Trailer API                              */
   /* -------------------------------------------------------------------------- */
