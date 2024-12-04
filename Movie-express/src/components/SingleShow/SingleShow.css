@@ -11,3 +11,56 @@
   filter: brightness(100%);
   transition: 0.2s all ease-in-out;
 }
+
+.actor-modal-container-left {
+  display: flex;
+  flex-direction: column;
+  height: 20%;
+  margin-left: 2rem;
+  margin-top: 2rem;
+  gap: 2.5rem;
+}
+
+.actor-modal-container-left h1 {
+  height: 25%;
+  font-weight: bold;
+  margin-top: 2rem;
+}
+
+.actor-modal-container-left p {
+  height: 10%;
+}
+
+.actor-modal-container-right {
+  height: 80%;
+  display: flex;
+  gap: 1rem;
+  padding: 2rem;
+  width: 100%;
+}
+.actor-modal-movie {
+  width: 100%;
+}
+.actor-modal-movie img {
+  border-radius: 20px;
+}
+
+@media (max-width: 1500px) {
+  #root
+    > div.modal-container.slide-in.actor
+    > div.actor-modal-container-right
+    > div:nth-child(3)
+    > img {
+    display: none;
+  }
+}
+
+@media (max-width: 1000px) {
+  #root
+    > div.modal-container.slide-in.actor
+    > div.actor-modal-container-right
+    > div:nth-child(2)
+    > img {
+    display: none;
+  }
+}
