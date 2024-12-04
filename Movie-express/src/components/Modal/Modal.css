@@ -58,7 +58,7 @@
   z-index: 9999;
   overflow: auto; /* Ensures scrolling when content overflows */
   cursor: default;
-  min-width: 580px;
+  min-width: 500px;
   min-height: 780px;
 }
 
