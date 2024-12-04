@@ -6,7 +6,7 @@ import MovieList from "../src/components/MovieList/MovieList.jsx";
 import Bento from "../src/components/Bento/Bento.jsx";
 import Modal from "../src/components/Modal/Modal.jsx";
 import Footer from "../src/components/Footer/Footer.jsx";
-
+import axios from "axios";
 
 function App() {
   const movieImgBasePath = "https://image.tmdb.org/t/p/original";
@@ -70,21 +70,28 @@ function App() {
   /* -------------------------------------------------------------------------- */
   /*                       Handling input from Search bar                       */
   /* -------------------------------------------------------------------------- */
-  // Storing the search result as an empty array by default
   const [searchResults, setSearchResults] = useState([]);
 
-  // What happens when the user submitts a search query
-  function handleSearch(query) {
-    const searchUrl = `https://api.themoviedb.org/3/search/movie?query=${query}&api_key=${apiKey}`;
-    async function fetchSearchData() {
-      const data = await getMovieData(searchUrl);
-      setSearchResults(data.results);
-      console.log(searchResults);
-    }
+  // What happens when the user submits a search query
+  async function handleSearch(query) {
+    const movieSearchUrl = `https://api.themoviedb.org/3/search/movie?query=${query}&api_key=${apiKey}`;
+    const actorSearchUrl = `https://api.themoviedb.org/3/search/person?query=${query}&api_key=${apiKey}`;
+
     try {
-      fetchSearchData();
-    } catch {
-      console.error();
+      const [movieResponse, actorResponse] = await Promise.all([
+        axios.get(movieSearchUrl),
+        axios.get(actorSearchUrl),
+      ]);
+
+      const combinedResults = [
+        ...movieResponse.data.results,
+        ...actorResponse.data.results[0].known_for,
+      ];
+
+      setSearchResults(combinedResults);
+      console.log(combinedResults);
+    } catch (error) {
+      console.error("Error fetching data:", error);
     }
   }
 

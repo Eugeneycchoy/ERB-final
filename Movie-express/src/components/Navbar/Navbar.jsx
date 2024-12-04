@@ -31,7 +31,7 @@ export default function Navbar(props) {
               type="text"
               value={query} /* Give this element a variable name */
               onChange={handleInputChange} /* call handleInputChange */
-              placeholder="Search Movies"
+              placeholder="Search Movies/People"
             />
             <button onClick={handleSearch}>
               <img src={searchbtn} alt="Search" />
@@ -45,7 +45,12 @@ export default function Navbar(props) {
         </nav>
         <ul className="nav">
           <li className="nav-item">
-            <a onClick={handleSortAnimations} className="nav-link active" aria-current="page" href="#">
+            <a
+              onClick={handleSortAnimations}
+              className="nav-link active"
+              aria-current="page"
+              href="#"
+            >
               Animation
             </a>
           </li>

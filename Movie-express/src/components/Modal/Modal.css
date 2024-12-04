@@ -50,25 +50,20 @@
   transform: translate(-50%, -50%) scale(0.9);
   opacity: 0;
   width: 70%;
-  height: 80%;
+  height: 90%;
   background: white;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
   transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
   z-index: 9999;
-  overflow: hidden;
+  overflow: auto; /* Ensures scrolling when content overflows */
   cursor: default;
 }
 
 .modal-container.slide-in {
   transform: translate(-50%, -50%) scale(1);
   opacity: 1;
-}
-/* end of animation part */
-
-/* style */
-.modal-container.slide-in {
-  box-shadow: 0 0 5px 5px rgba(128, 128, 128, 0.2);
+  box-shadow: 0 0 5px 5px rgba(128, 128, 128, 0.2); /* Moved this style here */
 }
 
 .show_backdrop_img {
@@ -83,12 +78,14 @@
 }
 
 .modal-container-left {
-  padding: 1rem;
+  padding: 3rem 5rem;
   display: flex;
   flex-direction: column;
-  gap: 3rem;
+  gap: 1.5rem;
   height: 100%;
-  width: 60%;
+  max-width: 90%;
+  max-height: 100%; /* Added to ensure scrolling */
+  overflow: auto; /* Added to ensure scrolling */
 }
 
 /* tags style */
@@ -102,7 +99,7 @@
 }
 
 .tags span {
-  padding: 8px;
+  padding: 0.5rem;
   border-radius: 4px;
   box-shadow: 0 2px 2px rgba(0, 0, 0);
   opacity: 0.85;
@@ -127,7 +124,7 @@
 /* end of tags style */
 
 .title {
-  font-size: 1.8rem;
+  font-size: 3rem;
   text-transform: uppercase;
   font-weight: bold;
   opacity: 0.9;
@@ -135,12 +132,10 @@
 
 .shows-duration {
   opacity: 0.7;
-  margin-top: -2.5rem;
 }
 
 .last-episode {
   opacity: 0.7;
-  margin-top: -2.5rem;
 }
 
 .genre-tags {
@@ -201,7 +196,7 @@
   border-radius: 10px;
   font-weight: bold;
   position: absolute;
-  bottom: 4rem;
+  bottom: 5rem;
 }
 
 .trailer-button:hover {
