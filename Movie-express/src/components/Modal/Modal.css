@@ -211,3 +211,12 @@
   font-weight: bold;
   font-size: 1.1rem;
 }
+
+.actor {
+  background-color: black;
+  color: white;
+}
+
+.actor h1 {
+  font-size: 2rem;
+}

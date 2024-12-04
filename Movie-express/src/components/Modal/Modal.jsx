@@ -258,9 +258,13 @@ export default function Modal({
       ) : (
         // Actor's Modal
         <div
-          className={`modal-container ${animate ? "slide-in" : "slide-out"}`}
+          className={`modal-container ${
+            animate ? "slide-in" : "slide-out"
+          } actor`}
         >
-          <h1>Actor's Info</h1>
+          <div className="modal-container-left">
+            <h1>{actor.name}</h1>
+          </div>
         </div>
       )}
     </>
