@@ -7,7 +7,18 @@ export default function SingleShow({
   baseUrl,
   imageType,
   handleDisplayShowInfoModal,
+  handleCloseModal,
+  actor,
+  isOpen,
+  handleClose,
 }) {
+  const handleClick = () => {
+    if (actor && isOpen) {
+      handleCloseModal(); // Close the actor modal
+      console.log("close the actor page");
+    }
+    handleDisplayShowInfoModal(show); // Open the movie modal
+  };
   return (
     <>
       <img
@@ -23,7 +34,7 @@ export default function SingleShow({
             : baseUrl + show.poster_path
         }
         alt=""
-        onClick={() => handleDisplayShowInfoModal(show)}
+        onClick={handleClick}
       />
     </>
   );

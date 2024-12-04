@@ -220,3 +220,19 @@
 .actor h1 {
   font-size: 2rem;
 }
+
+#root > div.modal-container.slide-in.actor,
+#root > div.modal-container.slide-out.actor {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.actor-modal-movie img {
+  width: 20rem;
+}
+
+#root > div.modal-container.slide-in.actor > div.actor-modal-container-right,
+#root > div.modal-container.slide-out.actor > div.actor-modal-container-right {
+  display: flex;
+}

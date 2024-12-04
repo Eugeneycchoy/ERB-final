@@ -4,6 +4,7 @@ import sg from "../../assets/sg.jpeg";
 import SingleActor from "../SingleActor/SingleActor";
 import cannotFindImg from "../../assets/thismovie.png";
 import axios from "axios";
+import SingleShow from "../SingleShow/SingleShow";
 
 export default function Modal({
   handleCloseModal,
@@ -14,6 +15,7 @@ export default function Modal({
   isOpen,
   youtubeTrailerBaseUrl,
   modalType,
+  handleDisplayShowInfoModal,
 }) {
   // useEffect(() => {
   //   console.log(show);
@@ -60,12 +62,12 @@ export default function Modal({
         .then((resJSON) => setDetails(resJSON))
         .catch((error) => console.error("Error fetching details:", error));
     } else {
-      let detailsUrl =
-        "https://api.themoviedb.org/3/search/person?query=henry%20cavill&include_adult=false&language=en-US&page=1"; // actor url
-      fetch(detailsUrl, apiOptions)
-        .then((res) => res.json())
-        .then((resJSON) => setDetails(resJSON))
-        .catch((error) => console.error("Error fetching details:", error));
+      // let detailsUrl =
+      //   "https://api.themoviedb.org/3/search/person?query=henry%20cavill&include_adult=false&language=en-US&page=1"; // actor url
+      // fetch(detailsUrl, apiOptions)
+      //   .then((res) => res.json())
+      //   .then((resJSON) => setDetails(resJSON))
+      //   .catch((error) => console.error("Error fetching details:", error));
     }
   }, [show, actor, apiOptions]);
 
@@ -186,6 +188,32 @@ export default function Modal({
     }
   }, [backdropImg]);
 
+  /* -------------------------------------------------------------------------- */
+  /*                                JSX TEMPLATE                                */
+  /* -------------------------------------------------------------------------- */
+  let actorMovieElements = [];
+  if (actor) {
+    actorMovieElements = actor.known_for.map((movie) => {
+      return (
+        <>
+          <div className="actor-modal-movie">
+            <SingleShow
+              key={movie.id}
+              show={movie}
+              baseUrl={baseImgPath}
+              imageType="poster"
+              handleDisplayShowInfoModal={handleDisplayShowInfoModal}
+              handleCloseModal={handleCloseModal}
+              actor={actor}
+              isOpen={isOpen}
+              handleClose={handleClose}
+            />
+          </div>
+        </>
+      );
+    });
+  }
+
   return (
     <>
       <div
@@ -257,13 +285,19 @@ export default function Modal({
         </div>
       ) : (
         // Actor's Modal
+
         <div
           className={`modal-container ${
             animate ? "slide-in" : "slide-out"
           } actor`}
         >
-          <div className="modal-container-left">
+          <div className="actor-modal-container-left">
             <h1>{actor.name}</h1>
+            <p>{actor.known_for_department}</p>
+          </div>
+
+          <div className="actor-modal-container-right">
+            {actorMovieElements}
           </div>
         </div>
       )}
