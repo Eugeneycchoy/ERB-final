@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import "../Modal/Modal.css";
 import sg from "../../assets/sg.jpeg";
 import SingleActor from "../SingleActor/SingleActor";
-import cannotFindImg from "../../assets/thistv.png";
+import cannotFindImg from "../../assets/thismovie.png";
 
 export default function Modal({
   handleCloseModal,
@@ -10,7 +10,7 @@ export default function Modal({
   baseImgPath,
   apiOptions,
   isOpen,
-  youtubeTrailerBaseUrl
+  youtubeTrailerBaseUrl,
 }) {
   useEffect(() => {
     console.log(show);
@@ -129,9 +129,8 @@ export default function Modal({
   const movieTrailerUrl = `https://api.themoviedb.org/3/movie/${show.id}/videos?language=en-US`;
   const tvSeriesTrailerUrl = `https://api.themoviedb.org/3/tv/${show.id}/videos?language=en-US`;
 
-
   useEffect(() => {
-    fetch(show.media_type?tvSeriesTrailerUrl : movieTrailerUrl, apiOptions)
+    fetch(show.media_type ? tvSeriesTrailerUrl : movieTrailerUrl, apiOptions)
       .then((res) => res.json())
       .then((resJSON) => {
         if (resJSON.results && resJSON.results.length > 0) {
@@ -145,15 +144,12 @@ export default function Modal({
         } else {
           console.log("No trailer found");
         }
-      })
-  }, [show.id, apiOptions])
+      });
+  }, [show.id, apiOptions]);
 
-function handleWatchTrailer() {
-  window.open(youtubeTrailerBaseUrl + trailerKey, "_blank");
-
-}
-
-
+  function handleWatchTrailer() {
+    window.open(youtubeTrailerBaseUrl + trailerKey, "_blank");
+  }
 
   /* -------------------------------------------------------------------------- */
   /*                                Movie Gallery                               */
@@ -210,15 +206,21 @@ function handleWatchTrailer() {
           <div className="cast-list">{castElements}</div>
 
           {/* Watch Trailer Button */}
-          <button onClick={handleWatchTrailer} className="trailer-button">Watch Trailer</button>
+          <button onClick={handleWatchTrailer} className="trailer-button">
+            Watch Trailer
+          </button>
         </div>
 
         {/* Background image */}
         <img
           className="show_backdrop_img"
-          src={ 
-            backdropImg ? !backdropImg.includes("null") ? backdropImg : cannotFindImg : "Loading"
-            }
+          src={
+            backdropImg
+              ? !backdropImg.includes("null")
+                ? backdropImg
+                : cannotFindImg
+              : "Loading"
+          }
           alt=""
         />
       </div>

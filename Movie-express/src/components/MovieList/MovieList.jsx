@@ -1,5 +1,5 @@
 import "../MovieList/MovieList.css";
-import cannotFindImg from "../../assets/thistv.png";
+import cannotFindImg from "../../assets/thismovie.png";
 import SingleShow from "../SingleShow/SingleShow";
 
 export default function MovieList({ shows, baseImgPath, handleDisplayModal }) {
