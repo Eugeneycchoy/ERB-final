@@ -145,7 +145,7 @@
   transition: 0.25s all ease-in-out;
 }
 
-@media (min-width: 1200px) {
+@media (min-width: 1000px) {
   .artrists-container {
     /* litte grid  */
     grid-column: 1fr;
@@ -164,7 +164,7 @@
 
 @media (max-width: 800px) {
   body {
-    min-width: 600px;
+    min-width: 540px;
   }
   .artrists-container {
     grid-template-columns: 1fr;
@@ -174,14 +174,6 @@
   #root > main > div.movie-bento-container > div.artrists-container > h2 {
     line-height: 2rem;
     font-size: 2.4rem;
-  }
-
-  #root
-    > main
-    > div.movie-bento-container
-    > div.artrists-container
-    > div:nth-child(2)
-    > img {
   }
 
   div.artrists-container > div:nth-child(3) > img {
