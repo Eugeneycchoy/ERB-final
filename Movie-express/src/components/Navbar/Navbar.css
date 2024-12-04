@@ -80,6 +80,12 @@ nav button {
   transition: 0.3s all ease-in-out;
 }
 
+.search-container input:focus,
+.search-container button:focus {
+  outline: none;
+  box-shadow: none;
+}
+
 .nav-mid {
   border: transparent;
   width: 75%;
