@@ -128,7 +128,7 @@ function App() {
     () => {
       // Fetch and Assign
       async function fetchingTopArtistsData() {
-        const topArtistsResponse = await axios.get(topArtistUrl);
+        const topArtistsResponse = await axios.get(topArtistUrl, options);
         setTopArtists(topArtistsResponse.data.results);
       }
 
@@ -249,6 +249,7 @@ function App() {
           isOpen={showModal}
           youtubeTrailerBaseUrl={youtubeTrailerBaseUrl}
           modalType="actorInfo"
+          handleDisplayShowInfoModal={displayShowInfoModal}
         />
       )}
 
