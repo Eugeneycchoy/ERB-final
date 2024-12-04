@@ -83,10 +83,15 @@ function App() {
         axios.get(actorSearchUrl),
       ]);
 
-      const combinedResults = [
-        ...movieResponse.data.results,
-        ...actorResponse.data.results[0].known_for,
-      ];
+      const movieResults = movieResponse.data.results || [];
+      const actorResults = actorResponse.data.results || [];
+
+      // Flatten known_for arrays from actor results
+      const knownForResults = actorResults.flatMap(
+        (actor) => actor.known_for || []
+      );
+
+      const combinedResults = [...movieResults, ...knownForResults];
 
       setSearchResults(combinedResults);
       console.log(combinedResults);

@@ -53,7 +53,7 @@ export default function Bento({
   // Artists
   const artistElements = artists.slice(0, 5).map((artist) => {
     return (
-      <div>
+      <div key={artist.id}>
         <img src={baseUrl + artist.profile_path} alt="" />
       </div>
     );
