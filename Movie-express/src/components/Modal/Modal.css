@@ -164,7 +164,7 @@
   flex-direction: row;
   gap: 1rem;
   position: absolute;
-  bottom: 8rem;
+  bottom: 9.5rem;
 }
 
 .cast-list img {
@@ -183,9 +183,10 @@
   position: absolute;
   padding: 2px;
   border-radius: 8px;
-  background-color: rgba(128, 128, 128, 0.4);
+  background-color: rgba(128, 128, 128, 1);
   opacity: 0.85;
   border: 1px solid gray;
+  z-index: 1;
 }
 
 .trailer-button {
@@ -193,7 +194,7 @@
   padding: 1rem;
   box-shadow: 0 0 2px 2px #cd201f;
   border: none;
-  background-color: transparent;
+  background-color: rgba(128, 128, 128, 0.25);
   color: #fff;
   cursor: pointer;
   border-radius: 10px;
@@ -204,6 +205,7 @@
 
 .trailer-button:hover {
   background-color: #cd201f;
-  transition: 0.2s all ease-in-out;
+  transition: 0.3s all ease-in-out;
   font-weight: bold;
+  font-size: 1.1rem;
 }
