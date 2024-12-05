@@ -66,6 +66,7 @@
   transform: translate(-50%, -50%) scale(1);
   opacity: 1;
   box-shadow: 0 0 5px 5px rgba(128, 128, 128, 0.2); /* Moved this style here */
+  min-width: 450px;
 }
 
 .show_backdrop_img {
@@ -85,7 +86,6 @@
   flex-direction: column;
   gap: 1.5rem;
   height: 100%;
-  max-width: 90%;
   max-height: 100%; /* Added to ensure scrolling */
   overflow: auto; /* Added to ensure scrolling */
 }
@@ -158,15 +158,13 @@
   opacity: 0.85;
   line-height: 1rem;
   max-width: 100%;
-  height: auto;
+  height: 20%;
 }
 
 .cast-list {
   display: flex;
   flex-direction: row;
   gap: 1rem;
-  position: absolute;
-  bottom: 9.5rem;
 }
 
 .cast-list img {
@@ -249,7 +247,8 @@
 }
 
 .actor-modal-movie img {
-  width: 15rem;
+  max-width: 15rem;
+  border-radius: 20px;
 }
 
 #root > div.modal-container.slide-in.actor > div.actor-modal-container-right,

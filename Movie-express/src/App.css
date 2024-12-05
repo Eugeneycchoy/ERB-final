@@ -93,12 +93,24 @@ main {
   }
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1120px) {
   div.artists-container > div:nth-child(5) > img {
     display: none;
   }
 
   div.artists-container > div:nth-child(6) > img {
+    display: none;
+  }
+
+  .actor-modal-movie img {
+    width: 12rem;
+  }
+
+  #root
+    > div.modal-container.slide-in.actor
+    > div.actor-modal-container-right
+    > div:nth-child(3)
+    > img {
     display: none;
   }
 }
@@ -129,5 +141,25 @@ main {
 
   #carouselExampleIndicators img {
     height: auto;
+  }
+  .show_backdrop_img {
+    width: auto;
+    object-fit: contain;
+  }
+
+  .plot-overview {
+    display: none;
+  }
+
+  .cast-list {
+    gap: 0.2rem;
+  }
+
+  .show-modal-controls {
+    flex-direction: column;
+  }
+
+  .modal-container-left {
+    width: 100%;
   }
 }

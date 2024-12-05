@@ -295,7 +295,6 @@ export default function Modal({
         >
           <div className="actor-modal-container-left">
             <h1>{actor.name}</h1>
-            <p>{actor.known_for_department}</p>
           </div>
 
           <div className="actor-modal-container-right">

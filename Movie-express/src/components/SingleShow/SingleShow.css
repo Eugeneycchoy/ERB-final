@@ -35,16 +35,15 @@
   display: flex;
   gap: 1rem;
   padding: 2rem;
-  width: 100%;
 }
 .actor-modal-movie {
   width: 100%;
 }
-.actor-modal-movie img {
-  border-radius: 20px;
-}
 
-@media (max-width: 1000px) {
+
+
+/* 
+@media (max-width: 1140px) {
   #root
     > div.modal-container.slide-in.actor
     > div.actor-modal-container-right
@@ -54,7 +53,7 @@
   }
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 830px) {
   #root
     > div.modal-container.slide-in.actor
     > div.actor-modal-container-right
@@ -62,4 +61,4 @@
     > img {
     display: none;
   }
-}
+} */
